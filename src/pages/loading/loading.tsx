@@ -6,9 +6,11 @@ import { calendarActions } from '../../store/calendar-slice';
 import { motion } from 'framer-motion';
 import CompleteLoading from './components/complete-loading';
 import BotsLoading from './components/bots-loading';
+import { uiActions } from '../../store/ui-slice';
 
 const Loading = () => {
-	const [activeTab, setActiveTab] = useState(tabs[0].id);
+	// const [activeTab, setActiveTab] = useState(tabs[0].id);
+	const { activeTab } = useAppSelector((state) => state.uiReducer);
 	const datePickerRef = useRef<any>(null);
 
 	const { calendarIsOpen } = useAppSelector((state) => state.calendarReducer);
@@ -25,7 +27,7 @@ const Loading = () => {
 	}, [calendarIsOpen]);
 
 	return (
-		<main className='wrapper pb-20 pt-4'>
+		<main className='wrapper pb-20 pt-4 absolute inset-0 bg-[#ebebf0]'>
 			<header className='flex items-center justify-between mb-8'>
 				<h2 className='font-semibold text-2xl text-black mr-2'>Статистика</h2>
 				<DatePicker
@@ -73,7 +75,9 @@ const Loading = () => {
 				{tabs.map((tab) => (
 					<button
 						key={tab.id}
-						onClick={() => setActiveTab(tab.id)}
+						onClick={() =>
+							dispatch(uiActions.setActiveTab(tab.id as 'complete' | 'bots'))
+						}
 						className={`relative rounded-lg px-3 py-1.5 text-sm font-medium text-black transition`}
 						style={{
 							WebkitTapHighlightColor: 'transparent',

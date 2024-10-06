@@ -63,14 +63,16 @@ const LineChart: FC<ILineChart> = ({
 										];
 									setTitle(data.y);
 									setDate(data.x);
-									setPercentage(
-										Number(
-											(
-												((data.y - chartData[0].y) / chartData[0].y) *
-												100
-											).toFixed(2)
-										)
-									);
+									if (chartData[0].y === 0) setPercentage(0);
+									else
+										setPercentage(
+											Number(
+												(
+													((data.y - chartData[0].y) / chartData[0].y) *
+													100
+												).toFixed(2)
+											)
+										);
 
 									// Update the last hovered point
 									lastHoveredPoint.current = dataPointIndex;
@@ -90,13 +92,17 @@ const LineChart: FC<ILineChart> = ({
 
 							setTitle(data.y);
 							setDate(data.x);
-							setPercentage(
-								Number(
-									(((data.y - chartData[0].y) / chartData[0].y) * 100).toFixed(
-										2
+
+							if (chartData[0].y === 0) setPercentage(0);
+							else
+								setPercentage(
+									Number(
+										(
+											((data.y - chartData[0].y) / chartData[0].y) *
+											100
+										).toFixed(2)
 									)
-								)
-							);
+								);
 							if (navigator.vibrate) {
 								navigator.vibrate(200);
 							}

@@ -2,10 +2,18 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export interface ICalendarSlice {
 	calendarIsOpen: boolean;
+	dateValue: {
+		start_date: undefined | number;
+		end_date: undefined | number;
+	};
 }
 
 const initialState: ICalendarSlice = {
 	calendarIsOpen: false,
+	dateValue: {
+		start_date: undefined,
+		end_date: undefined,
+	},
 };
 
 const calendarSlice = createSlice({
@@ -17,6 +25,15 @@ const calendarSlice = createSlice({
 		},
 		setCalendar(state, action: PayloadAction<boolean>) {
 			state.calendarIsOpen = action.payload;
+		},
+		setDateValue(
+			state,
+			action: PayloadAction<{
+				start_date: undefined | number;
+				end_date: undefined | number;
+			}>
+		) {
+			state.dateValue = action.payload;
 		},
 	},
 });

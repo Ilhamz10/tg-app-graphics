@@ -5,9 +5,10 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import Home from './pages/home/Home';
 import { Root } from './layout/root/root';
-import "react-datepicker/dist/react-datepicker.css";
+import 'react-datepicker/dist/react-datepicker.css';
 
 import { store } from './store';
+import Webapp from './pages/webapp/webapp';
 
 export const routes = [
 	{
@@ -34,6 +35,7 @@ export const routes = [
 		path: '/yesterday',
 		element: <Home />,
 	},
+	{ path: '/webapp', element: <Webapp /> },
 ];
 
 const router = createBrowserRouter([

@@ -5,5 +5,6 @@ export function findMaxPercent(data: { x: number; y: number }[]) {
 }
 
 export function findPercent(value: number, maxValue: number) {
+	if (maxValue === 0) return 0;
 	return Number((((value - maxValue) / maxValue) * 100).toFixed(2));
 }
