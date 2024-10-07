@@ -54,10 +54,14 @@ const Loading = () => {
 					onClickOutside={() => dispatch(calendarActions.toggleCallendar())}
 					onCalendarClose={() => dispatch(calendarActions.setCalendar(false))}
 					shouldCloseOnSelect={false}
+					maxDate={new Date()}
 				/>
 				<p className='px-[6px] py-1 bg-[#DCDCE2] text-blue font-medium rounded-lg'>
 					{startDate && endDate
-						? Date.parse(startDate) === Date.parse(endDate)
+						? new Date(startDate).getFullYear() ===
+								new Date(endDate).getFullYear() &&
+						  new Date(startDate).getMonth() === new Date(endDate).getMonth() &&
+						  new Date(startDate).getDay() === new Date(endDate).getDay()
 							? `${new Date(startDate).toLocaleDateString('ru-Ru', {
 									day: '2-digit',
 									month: 'short',

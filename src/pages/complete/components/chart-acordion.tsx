@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import AccordionCard from '../../../shared/UI/AccordionCard';
 import LineChart from './linec-chart';
 
@@ -18,8 +18,14 @@ const ChartAccordion: FC<IChartAccordion> = ({
 	titleText,
 }) => {
 	const [title, setTitle] = useState(maxValue);
-	const [percentage, setPercentage] = useState(maxPercentage);
+	const [percentage, setPercentage] = useState(0);
 	const [date, setDate] = useState(chartData[chartData.length - 1].label);
+
+	useEffect(() => {
+		setPercentage(maxPercentage);
+		setTitle(maxValue);
+		setDate(chartData[chartData.length - 1].label);
+	}, [maxPercentage, maxValue, chartData[chartData.length - 1].label]);
 
 	return (
 		<AccordionCard

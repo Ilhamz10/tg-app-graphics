@@ -19,7 +19,7 @@ const Home = () => {
 	const location = useLocation();
 	const datePickerRef = useRef<any>(null);
 
-	const { loading } = useAppSelector((state) => state.uiReducer);	
+	const { loading } = useAppSelector((state) => state.uiReducer);
 
 	const { calendarIsOpen } = useAppSelector((state) => state.calendarReducer);
 	const dispatch = useAppDispatch();
@@ -79,11 +79,15 @@ const Home = () => {
 						onClickOutside={() => dispatch(calendarActions.toggleCallendar())}
 						onCalendarClose={() => dispatch(calendarActions.setCalendar(false))}
 						shouldCloseOnSelect={false}
+						maxDate={new Date()}
 					/>
 					<p className='px-[6px] py-1 bg-[#DCDCE2] text-blue font-medium rounded-lg cursor-pointer'>
 						{startDate && endDate
-							? Date.parse(new Date(startDate).toUTCString()) ===
-							  Date.parse(new Date(endDate).toUTCString())
+							? new Date(startDate).getFullYear() ===
+									new Date(endDate).getFullYear() &&
+							  new Date(startDate).getMonth() ===
+									new Date(endDate).getMonth() &&
+							  new Date(startDate).getDay() === new Date(endDate).getDay()
 								? `${new Date(startDate).toLocaleDateString('ru-Ru', {
 										day: '2-digit',
 										month: 'short',

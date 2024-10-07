@@ -34,16 +34,16 @@ const secondData = [
 ];
 
 const firstData = [
-	{ x: 1, y: 10200 },
-	{ x: 2, y: 11200 },
-	{ x: 3, y: 11450 },
-	{ x: 4, y: 15370 },
-	{ x: 5, y: 9400 },
-	{ x: 6, y: 17450 },
-	{ x: 7, y: 22900 },
-	{ x: 8, y: 27849 },
-	{ x: 9, y: 29720 },
-	{ x: 10, y: 28190.34 },
+	{ x: 1, y: 1, label: 'text' },
+	{ x: 2, y: 2, label: 'text' },
+	{ x: 3, y: 4, label: 'text' },
+	{ x: 4, y: 0, label: 'text' },
+	{ x: 5, y: 5, label: 'text' },
+	{ x: 6, y: 7, label: 'text' },
+	{ x: 7, y: 8, label: 'text' },
+	{ x: 8, y: 9, label: 'text' },
+	{ x: 9, y: 11, label: 'text' },
+	{ x: 10, y: 0, label: 'text' },
 ];
 
 const Complete = () => {
