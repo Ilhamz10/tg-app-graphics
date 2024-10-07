@@ -6,6 +6,7 @@ export interface ICalendarSlice {
 		start_date: undefined | number;
 		end_date: undefined | number;
 	};
+	calendarState: [string | null, string | null];
 }
 
 const initialState: ICalendarSlice = {
@@ -14,6 +15,7 @@ const initialState: ICalendarSlice = {
 		start_date: undefined,
 		end_date: undefined,
 	},
+	calendarState: [new Date().toUTCString(), new Date().toUTCString()],
 };
 
 const calendarSlice = createSlice({
@@ -34,6 +36,12 @@ const calendarSlice = createSlice({
 			}>
 		) {
 			state.dateValue = action.payload;
+		},
+		setCalendarState(
+			state,
+			action: PayloadAction<[string | null, string | null]>
+		) {
+			state.calendarState = action.payload;
 		},
 	},
 });

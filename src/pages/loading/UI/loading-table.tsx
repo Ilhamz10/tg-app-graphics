@@ -1,11 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Tbody from '../../bots/UI/tbody';
 import Thead from '../../bots/UI/thead';
+import { ISortParams } from '../../../endpoint/types';
 
 const LoadingTable = () => {
+	const [sortParams, setSortParams] = useState<ISortParams>({
+		order: 'asc',
+		sort_by: 'users_count',
+	});
 	return (
 		<div className='w-full grid grid-cols-[8ch,repeat(5,auto)] text-center'>
-			<Thead />
+			<Thead setSortParams={setSortParams} sortParams={sortParams} />
 			<Tbody
 				tbody={{
 					bots: (

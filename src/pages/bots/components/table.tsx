@@ -13,7 +13,7 @@ const Table = () => {
 		sort_by: 'users_count',
 	});
 
-	const { data, isLoading, isSuccess } = useGetAllBotsQuery({
+	const { data, isLoading, isSuccess, refetch } = useGetAllBotsQuery({
 		order: sortParams.order,
 		sort_by: sortParams.sort_by,
 	});
@@ -28,9 +28,13 @@ const Table = () => {
 		}
 	}, [isLoading, isSuccess]);
 
+	useEffect(() => {
+		refetch();
+	}, [sortParams]);
+
 	return (
 		<div className='w-full grid grid-cols-[8ch,repeat(5,auto)] text-center'>
-			<Thead />
+			<Thead sortParams={sortParams} setSortParams={setSortParams} />
 			{isSuccess &&
 				data.result &&
 				data.result.projects.map((project) => (

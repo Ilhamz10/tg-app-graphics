@@ -16,11 +16,8 @@ const Loading = () => {
 	const { calendarIsOpen } = useAppSelector((state) => state.calendarReducer);
 	const dispatch = useAppDispatch();
 
-	const [dateRange, setDateRange] = useState<[Date | null, Date | null]>([
-		new Date(),
-		new Date(),
-	]);
-	const [startDate, endDate] = dateRange;
+	const { calendarState } = useAppSelector((state) => state.calendarReducer);
+	const [startDate, endDate] = calendarState;
 
 	useEffect(() => {
 		datePickerRef.current.setOpen(calendarIsOpen);
@@ -33,10 +30,15 @@ const Loading = () => {
 				<DatePicker
 					ref={datePickerRef}
 					selectsRange={true}
-					startDate={startDate ? startDate : undefined}
-					endDate={endDate ? endDate : undefined}
+					startDate={startDate ? new Date(startDate) : undefined}
+					endDate={endDate ? new Date(endDate) : undefined}
 					onChange={(update) => {
-						setDateRange(update);
+						dispatch(
+							calendarActions.setCalendarState([
+								update[0] ? update[0].toUTCString() : null,
+								update[1] ? update[1].toUTCString() : null,
+							])
+						);
 					}}
 					withPortal
 					placeholderText='Выберите дату'
@@ -55,8 +57,7 @@ const Loading = () => {
 				/>
 				<p className='px-[6px] py-1 bg-[#DCDCE2] text-blue font-medium rounded-lg'>
 					{startDate && endDate
-						? Date.parse(startDate.toUTCString()) ===
-						  Date.parse(endDate.toUTCString())
+						? Date.parse(startDate) === Date.parse(endDate)
 							? `${new Date(startDate).toLocaleDateString('ru-Ru', {
 									day: '2-digit',
 									month: 'short',

@@ -1,4 +1,4 @@
-import { FC, ReactNode, useState } from 'react';
+import { FC, ReactNode, useEffect, useState } from 'react';
 import { ArrowDown, GraphicIcon } from '../../assets';
 import { motion } from 'framer-motion';
 
@@ -9,6 +9,12 @@ interface IAcordionCard {
 	type: 'good' | 'bad';
 	content: ReactNode;
 	date: string | ReactNode;
+	maxValue: number;
+	maxPercentage: number;
+	maxDate: string;
+	setDate: React.Dispatch<React.SetStateAction<string>>;
+	setPercentage: React.Dispatch<React.SetStateAction<number>>;
+	setTitle: React.Dispatch<React.SetStateAction<number>>;
 }
 
 const dropdownVariants = {
@@ -27,8 +33,22 @@ const AccordionCard: FC<IAcordionCard> = ({
 	type,
 	content,
 	date,
+	maxValue,
+	maxPercentage,
+	maxDate,
+	setDate,
+	setPercentage,
+	setTitle,
 }) => {
 	const [isOpen, setIsOpen] = useState(false);
+
+	useEffect(() => {
+		if (!isOpen) {
+			setPercentage(maxPercentage);
+			setTitle(maxValue);
+			setDate(maxDate);
+		}
+	}, [isOpen]);
 
 	return (
 		<div className='bg-white rounded-lg'>

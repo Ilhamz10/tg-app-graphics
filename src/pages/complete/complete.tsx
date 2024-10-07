@@ -4,6 +4,7 @@ import { useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { IDateParams } from '../../endpoint/types';
 import {
+	getMonth,
 	getToday,
 	getWeek,
 	getYear,
@@ -112,34 +113,46 @@ const Complete = () => {
 			case '/':
 				const { start, end } = getToday();
 				dispatch(
-					calendarActions.setDateValue({ start_date: start, end_date: end })
+					calendarActions.setCalendarState([
+						new Date(start * 1000).toUTCString(),
+						new Date(end * 1000).toUTCString(),
+					])
 				);
 				break;
 			case '/yesterday':
 				const { startOfYesterday, endOfYesterday } = getYesterday();
 				dispatch(
-					calendarActions.setDateValue({
-						start_date: startOfYesterday,
-						end_date: endOfYesterday,
-					})
+					calendarActions.setCalendarState([
+						new Date(startOfYesterday * 1000).toUTCString(),
+						new Date(endOfYesterday * 1000).toUTCString(),
+					])
 				);
 				break;
 			case '/week':
 				const { start: startWeek, end: endWeek } = getWeek();
 				dispatch(
-					calendarActions.setDateValue({
-						start_date: startWeek,
-						end_date: endWeek,
-					})
+					calendarActions.setCalendarState([
+						new Date(startWeek * 1000).toUTCString(),
+						new Date(endWeek * 1000).toUTCString(),
+					])
+				);
+				break;
+			case '/month':
+				const { startMonth, endMonth } = getMonth();
+				dispatch(
+					calendarActions.setCalendarState([
+						new Date(startMonth * 1000).toUTCString(),
+						new Date(endMonth * 1000).toUTCString(),
+					])
 				);
 				break;
 			case '/year':
 				const { startYear, endYear } = getYear();
 				dispatch(
-					calendarActions.setDateValue({
-						start_date: startYear,
-						end_date: endYear,
-					})
+					calendarActions.setCalendarState([
+						new Date(startYear * 1000).toUTCString(),
+						new Date(endYear * 1000).toUTCString(),
+					])
 				);
 				break;
 		}
@@ -171,12 +184,6 @@ const Complete = () => {
 		incomeChartIsLoading,
 		incomeChartIsSuccess,
 	]);
-
-	// console.log({
-	// 	income: incomeChart?.result.graph,
-	// 	clients: clientsChart?.result.graph,
-	// 	payments: paymentsCountChart?.result.graph,
-	// });
 
 	return (
 		<>

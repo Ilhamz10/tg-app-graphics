@@ -14,6 +14,7 @@ export interface IStatisticGraphic {
 		graph: {
 			x: number;
 			y: number;
+			label: string;
 		}[];
 	};
 }

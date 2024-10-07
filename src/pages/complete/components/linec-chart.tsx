@@ -23,7 +23,7 @@ const LineChart: FC<ILineChart> = ({
 			series={[
 				{
 					name: 'Data Series',
-					data: chartData,
+					data: chartData.map((data) => ({ ...data, title: 'xuy' })),
 				},
 			]}
 			options={{
@@ -58,11 +58,11 @@ const LineChart: FC<ILineChart> = ({
 								if (lastHoveredPoint.current !== dataPointIndex) {
 									// Get the value of the hovered point
 									const data =
-										chartContext.w.config.series[seriesIndex].data[
-											dataPointIndex
-										];
+										chartContext.w.config.series[0].data[dataPointIndex];
 									setTitle(data.y);
-									setDate(data.x);
+									setDate(data.label);
+									
+
 									if (chartData[0].y === 0) setPercentage(0);
 									else
 										setPercentage(
@@ -87,11 +87,12 @@ const LineChart: FC<ILineChart> = ({
 						markerClick(e, chartContext, config) {
 							const dataPointIndex = config.dataPointIndex;
 							const seriesIndex = config.seriesIndex;
+
 							const data =
 								chartContext.w.config.series[seriesIndex].data[dataPointIndex];
 
 							setTitle(data.y);
-							setDate(data.x);
+							setDate(data.label);
 
 							if (chartData[0].y === 0) setPercentage(0);
 							else

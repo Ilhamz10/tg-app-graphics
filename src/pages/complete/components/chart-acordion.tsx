@@ -6,7 +6,7 @@ interface IChartAccordion {
 	maxValue: number;
 	maxPercentage: number;
 	text: string;
-	chartData: { x: number; y: number }[];
+	chartData: { x: number; y: number; label: string }[];
 	titleText: string;
 }
 
@@ -19,7 +19,7 @@ const ChartAccordion: FC<IChartAccordion> = ({
 }) => {
 	const [title, setTitle] = useState(maxValue);
 	const [percentage, setPercentage] = useState(maxPercentage);
-	const [date, setDate] = useState(String(chartData[chartData.length - 1].x));
+	const [date, setDate] = useState(chartData[chartData.length - 1].label);
 
 	return (
 		<AccordionCard
@@ -37,6 +37,12 @@ const ChartAccordion: FC<IChartAccordion> = ({
 				/>
 			}
 			date={date}
+			setTitle={setTitle}
+			setPercentage={setPercentage}
+			maxValue={maxValue}
+			maxPercentage={maxPercentage}
+			maxDate={chartData[chartData.length - 1].label}
+			setDate={setDate}
 		/>
 	);
 };

@@ -15,11 +15,12 @@ export function getYesterday() {
 	yesterday.setDate(yesterday.getDate() - 1); // Go back one day
 	yesterday.setHours(0, 0, 0, 0); // Set time to 00:00:00.000
 	const startOfYesterday = yesterday.getTime() / 1000;
+
 	const yesterdayEnd = new Date();
-	yesterdayEnd.setDate(yesterday.getDate() - 1); // Go back one day
+	yesterdayEnd.setDate(yesterdayEnd.getDate() - 1); // Go back one day
 	yesterdayEnd.setHours(23, 59, 59, 999); // Set time to 23:59:59.999
 	const endOfYesterday = yesterdayEnd.getTime() / 1000;
-
+	
 	return {
 		startOfYesterday,
 		endOfYesterday,
@@ -37,6 +38,23 @@ export function getWeek() {
 	return {
 		start: startOfSevenDaysAgo,
 		end: endDateNow,
+	};
+}
+
+export function getMonth() {
+	const now = new Date(); // Current date and time
+
+	// Set the start date to one month ago
+	const startDate = new Date();
+	startDate.setMonth(now.getMonth() - 1); // Move one month back
+
+	// Get timestamps (milliseconds since 1970) for start and end dates
+	const startMonth = startDate.getTime() / 1000; // One month ago (start date)
+	const endMonth = now.getTime() / 1000;
+
+	return {
+		startMonth,
+		endMonth,
 	};
 }
 

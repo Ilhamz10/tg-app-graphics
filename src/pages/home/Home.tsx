@@ -19,19 +19,16 @@ const Home = () => {
 	const location = useLocation();
 	const datePickerRef = useRef<any>(null);
 
-	const { loading } = useAppSelector((state) => state.uiReducer);
+	const { loading } = useAppSelector((state) => state.uiReducer);	
 
 	const { calendarIsOpen } = useAppSelector((state) => state.calendarReducer);
 	const dispatch = useAppDispatch();
 
-	const [dateRange, setDateRange] = useState<[Date | null, Date | null]>([
-		new Date(),
-		new Date(),
-	]);
-	const [startDate, endDate] = dateRange;
+	const { calendarState } = useAppSelector((state) => state.calendarReducer);
+	const [startDate, endDate] = calendarState;
 
 	useEffect(() => {
-		if (startDate && endDate && location.pathname === '/choice') {
+		if (startDate && endDate) {
 			dispatch(
 				calendarActions.setDateValue({
 					start_date: new Date(startDate).getTime() / 1000,
@@ -50,16 +47,23 @@ const Home = () => {
 	return (
 		<>
 			{loading && <Loading />}
-			<main className='wrapper pb-20 pt-4'>
+			<main
+				className='wrapper pb-20 pt-4'
+				style={{ opacity: loading ? '0' : '1' }}>
 				<div className='flex items-center justify-between mb-8'>
 					<h2 className='font-semibold text-2xl text-black mr-2'>Статистика</h2>
 					<DatePicker
 						ref={datePickerRef}
 						selectsRange={true}
-						startDate={startDate ? startDate : undefined}
-						endDate={endDate ? endDate : undefined}
+						startDate={startDate ? new Date(startDate) : undefined}
+						endDate={endDate ? new Date(endDate) : undefined}
 						onChange={(update) => {
-							setDateRange(update);
+							dispatch(
+								calendarActions.setCalendarState([
+									update[0] ? update[0].toUTCString() : null,
+									update[1] ? update[1].toUTCString() : null,
+								])
+							);
 						}}
 						withPortal
 						placeholderText='Выберите дату'
@@ -76,10 +80,10 @@ const Home = () => {
 						onCalendarClose={() => dispatch(calendarActions.setCalendar(false))}
 						shouldCloseOnSelect={false}
 					/>
-					<p className='px-[6px] py-1 bg-[#DCDCE2] text-blue font-medium rounded-lg'>
+					<p className='px-[6px] py-1 bg-[#DCDCE2] text-blue font-medium rounded-lg cursor-pointer'>
 						{startDate && endDate
-							? Date.parse(startDate.toUTCString()) ===
-							  Date.parse(endDate.toUTCString())
+							? Date.parse(new Date(startDate).toUTCString()) ===
+							  Date.parse(new Date(endDate).toUTCString())
 								? `${new Date(startDate).toLocaleDateString('ru-Ru', {
 										day: '2-digit',
 										month: 'short',

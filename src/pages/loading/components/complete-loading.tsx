@@ -8,6 +8,12 @@ const CompleteLoading = () => {
 		<>
 			<div className='grid gap-2 mb-8'>
 				<AccordionCard
+					setPercentage={() => {}}
+					setTitle={() => {}}
+					maxPercentage={0}
+					maxValue={0}
+					maxDate='0'
+					setDate={() => {}}
 					content={
 						<div className='px-3 pb-3'>
 							<img src={graphicLoadingImg} className='w-full loading' />
@@ -32,6 +38,12 @@ const CompleteLoading = () => {
 					type='good'
 				/>
 				<AccordionCard
+					setPercentage={() => {}}
+					setTitle={() => {}}
+					maxPercentage={0}
+					maxValue={0}
+					maxDate='0'
+					setDate={() => {}}
 					content={
 						<div className='px-3 pb-3'>
 							<img src={graphicLoadingImg} className='w-full loading' />
@@ -56,6 +68,12 @@ const CompleteLoading = () => {
 					type='good'
 				/>
 				<AccordionCard
+					setPercentage={() => {}}
+					setTitle={() => {}}
+					maxPercentage={0}
+					maxValue={0}
+					maxDate='0'
+					setDate={() => {}}
 					content={
 						<div className='px-3 pb-3'>
 							<img src={graphicLoadingImg} className='w-full loading' />
