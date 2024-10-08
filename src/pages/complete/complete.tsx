@@ -21,29 +21,21 @@ import { uiActions } from '../../store/ui-slice';
 import { calendarActions } from '../../store/calendar-slice';
 
 const secondData = [
-	{ x: 1, y: 28190.34 },
-	{ x: 2, y: 29720 },
-	{ x: 3, y: 27849 },
-	{ x: 4, y: 22900 },
-	{ x: 5, y: 17450 },
-	{ x: 6, y: 9400 },
-	{ x: 7, y: 15370 },
-	{ x: 8, y: 11450 },
-	{ x: 9, y: 11200 },
-	{ x: 10, y: 10200 },
+	{ x: 0, y: 1, label: 'text' },
+	{ x: 1, y: 1, label: 'text' },
+	{ x: 2, y: 5, label: 'text' },
+	{ x: 3, y: 10, label: 'text' },
+	{ x: 4, y: 0, label: 'text' },
 ];
 
 const firstData = [
-	{ x: 1, y: 1, label: 'text' },
-	{ x: 2, y: 2, label: 'text' },
-	{ x: 3, y: 4, label: 'text' },
-	{ x: 4, y: 0, label: 'text' },
-	{ x: 5, y: 5, label: 'text' },
-	{ x: 6, y: 7, label: 'text' },
-	{ x: 7, y: 8, label: 'text' },
-	{ x: 8, y: 9, label: 'text' },
-	{ x: 9, y: 11, label: 'text' },
-	{ x: 10, y: 0, label: 'text' },
+	{ x: 0, y: 0, label: 'text' },
+	{ x: 1, y: 0, label: 'text' },
+	{ x: 2, y: 5, label: 'text' },
+	{ x: 3, y: 8, label: 'text' },
+	{ x: 4, y: 15, label: 'text' },
+	{ x: 5, y: 6, label: 'text' },
+	{ x: 6, y: 0, label: 'text' },
 ];
 
 const Complete = () => {
@@ -109,56 +101,6 @@ const Complete = () => {
 	);
 
 	useEffect(() => {
-		switch (location.pathname) {
-			case '/':
-				const { start, end } = getToday();
-				dispatch(
-					calendarActions.setCalendarState([
-						new Date(start * 1000).toUTCString(),
-						new Date(end * 1000).toUTCString(),
-					])
-				);
-				break;
-			case '/yesterday':
-				const { startOfYesterday, endOfYesterday } = getYesterday();
-				dispatch(
-					calendarActions.setCalendarState([
-						new Date(startOfYesterday * 1000).toUTCString(),
-						new Date(endOfYesterday * 1000).toUTCString(),
-					])
-				);
-				break;
-			case '/week':
-				const { start: startWeek, end: endWeek } = getWeek();
-				dispatch(
-					calendarActions.setCalendarState([
-						new Date(startWeek * 1000).toUTCString(),
-						new Date(endWeek * 1000).toUTCString(),
-					])
-				);
-				break;
-			case '/month':
-				const { startMonth, endMonth } = getMonth();
-				dispatch(
-					calendarActions.setCalendarState([
-						new Date(startMonth * 1000).toUTCString(),
-						new Date(endMonth * 1000).toUTCString(),
-					])
-				);
-				break;
-			case '/year':
-				const { startYear, endYear } = getYear();
-				dispatch(
-					calendarActions.setCalendarState([
-						new Date(startYear * 1000).toUTCString(),
-						new Date(endYear * 1000).toUTCString(),
-					])
-				);
-				break;
-		}
-	}, [location.pathname]);
-
-	useEffect(() => {
 		if (
 			isFetching ||
 			clientsChartIsLoading ||
@@ -188,6 +130,20 @@ const Complete = () => {
 	return (
 		<>
 			<div className='grid gap-2 mb-8'>
+				{/* <ChartAccordion
+					maxPercentage={findMaxPercent(secondData)}
+					maxValue={secondData[secondData.length - 1].y}
+					text='Доход'
+					titleText='₽'
+					chartData={secondData}
+				/>
+				<ChartAccordion
+					maxPercentage={findMaxPercent(firstData)}
+					maxValue={firstData[firstData.length - 1].y}
+					text='Доход'
+					titleText='₽'
+					chartData={firstData}
+				/> */}
 				{incomeChartIsSuccess && incomeChart.result.graph.length > 0 && (
 					<ChartAccordion
 						maxPercentage={findMaxPercent(incomeChart.result.graph)}

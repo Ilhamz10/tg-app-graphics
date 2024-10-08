@@ -1,5 +1,6 @@
 import React, { FC, useRef } from 'react';
 import ReactApexChart from 'react-apexcharts';
+import { findPercent } from '../../../utils/findMaxPercentage';
 
 interface ILineChart {
 	setTitle: React.Dispatch<React.SetStateAction<number>>;
@@ -61,25 +62,42 @@ const LineChart: FC<ILineChart> = ({
 										chartContext.w.config.series[0].data[dataPointIndex];
 									setTitle(data.y);
 									setDate(data.label);
-									
 
-									if (chartData[0].y === 0) setPercentage(0);
-									else
-										setPercentage(
-											Number(
-												(
-													((data.y - chartData[0].y) / chartData[0].y) *
-													100
-												).toFixed(2)
-											)
-										);
+									// if (chartData[0].y === 0) setPercentage(0);
+									// else
+									// 	setPercentage(
+									// 		Number(
+									// 			(
+									// 				((data.y - chartData[0].y) / chartData[0].y) *
+									// 				100
+									// 			).toFixed(2)
+									// 		)
+									// 	);
+									const index = data.x;
+									const firstValue = chartData.find((chdata) => chdata.y > 0);
+
+									if (chartData[0].y === 0) {
+										if (firstValue) {
+											setPercentage(findPercent(data.y, firstValue.y, true));
+										} else {
+											setPercentage(findPercent(data.y, chartData[0].y, true));
+										}
+									} else {
+										setPercentage(findPercent(data.y, chartData[0].y, false));
+									}
 
 									// Update the last hovered point
 									lastHoveredPoint.current = dataPointIndex;
 
 									// Optionally vibrate the device when the user hovers over a new data point
+									navigator.vibrate =
+										navigator.vibrate ||
+										(navigator as any).webkitVibrate ||
+										(navigator as any).mozVibrate ||
+										(navigator as any).msVibrate;
+										
 									if (navigator.vibrate) {
-										navigator.vibrate(200);
+										navigator.vibrate(400);
 									}
 								}
 							}

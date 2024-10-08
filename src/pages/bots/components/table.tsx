@@ -3,30 +3,40 @@ import { useGetAllBotsQuery } from '../../../endpoint/botsApi';
 import Tbody from '../UI/tbody';
 import Thead from '../UI/thead';
 import { ISortParams } from '../../../endpoint/types';
-import { useAppDispatch } from '../../../hooks/redux-hooks';
+import { useAppDispatch, useAppSelector } from '../../../hooks/redux-hooks';
 import { uiActions } from '../../../store/ui-slice';
 
 const Table = () => {
 	const dispatch = useAppDispatch();
+	const { dateValue } = useAppSelector((state) => state.calendarReducer);
 	const [sortParams, setSortParams] = useState<ISortParams>({
 		order: 'asc',
 		sort_by: 'users_count',
 	});
 
-	const { data, isLoading, isSuccess, refetch } = useGetAllBotsQuery({
-		order: sortParams.order,
-		sort_by: sortParams.sort_by,
-	});
+	const { data, isFetching, isSuccess, refetch } = useGetAllBotsQuery(
+		{
+			order: sortParams.order,
+			sort_by: sortParams.sort_by,
+			start_date: dateValue.start_date as number,
+			end_date: dateValue.end_date as number,
+			tz: Intl.DateTimeFormat().resolvedOptions().timeZone,
+		},
+		{
+			skip:
+				dateValue.end_date === undefined || dateValue.start_date === undefined,
+		}
+	);
 
 	useEffect(() => {
-		if (isLoading) {
+		if (isFetching) {
 			dispatch(uiActions.setLoading(true));
 		}
 
-		if (isSuccess) {
+		if (isSuccess && !isFetching) {
 			dispatch(uiActions.setLoading(false));
 		}
-	}, [isLoading, isSuccess]);
+	}, [isFetching, isSuccess]);
 
 	useEffect(() => {
 		refetch();

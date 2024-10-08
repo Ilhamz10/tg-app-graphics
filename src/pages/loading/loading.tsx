@@ -1,12 +1,15 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { tabs } from '../home/Home';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
-import DatePicker from 'react-datepicker';
+import DatePicker, { registerLocale } from 'react-datepicker';
 import { calendarActions } from '../../store/calendar-slice';
 import { motion } from 'framer-motion';
 import CompleteLoading from './components/complete-loading';
 import BotsLoading from './components/bots-loading';
 import { uiActions } from '../../store/ui-slice';
+import { ru } from 'date-fns/locale';
+
+registerLocale('ru', ru);
 
 const Loading = () => {
 	// const [activeTab, setActiveTab] = useState(tabs[0].id);
@@ -40,6 +43,7 @@ const Loading = () => {
 							])
 						);
 					}}
+					locale={'ru'}
 					withPortal
 					placeholderText='Выберите дату'
 					customInput={
@@ -61,7 +65,7 @@ const Loading = () => {
 						? new Date(startDate).getFullYear() ===
 								new Date(endDate).getFullYear() &&
 						  new Date(startDate).getMonth() === new Date(endDate).getMonth() &&
-						  new Date(startDate).getDay() === new Date(endDate).getDay()
+						  new Date(startDate).getDate() === new Date(endDate).getDate()
 							? `${new Date(startDate).toLocaleDateString('ru-Ru', {
 									day: '2-digit',
 									month: 'short',

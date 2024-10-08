@@ -9,6 +9,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 
 import { store } from './store';
 import Webapp from './pages/webapp/webapp';
+import ErrorPage from './pages/ErrorPage/ErrorPage';
 
 export const routes = [
 	{
@@ -42,6 +43,7 @@ const router = createBrowserRouter([
 	{
 		path: '/',
 		element: <Root />,
+		errorElement: <ErrorPage />,
 		children: routes,
 	},
 ]);

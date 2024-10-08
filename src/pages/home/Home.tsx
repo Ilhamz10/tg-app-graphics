@@ -3,11 +3,15 @@ import { useEffect, useRef, useState } from 'react';
 import Complete from '../complete/complete';
 import Bots from '../bots/bots';
 import { useLocation } from 'react-router-dom';
-import DatePicker from 'react-datepicker';
+import DatePicker, { registerLocale } from 'react-datepicker';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
 import { calendarActions } from '../../store/calendar-slice';
 import Loading from '../loading/loading';
 import { uiActions } from '../../store/ui-slice';
+import { ru } from 'date-fns/locale';
+import { getMonth, getToday, getWeek, getYear, getYesterday } from '../../utils/getDateByTimestamp';
+
+registerLocale('ru', ru);
 
 export let tabs = [
 	{ id: 'complete', label: 'Полная' },
@@ -36,7 +40,58 @@ const Home = () => {
 				})
 			);
 		}
-	}, [startDate, endDate, location.pathname]);
+	}, [startDate, endDate]);
+
+	useEffect(() => {
+		switch (location.pathname) {
+			case '/':
+			case '/choice':
+				const { start, end } = getToday();
+				dispatch(
+					calendarActions.setCalendarState([
+						new Date(start * 1000).toUTCString(),
+						new Date(end * 1000).toUTCString(),
+					])
+				);
+				break;
+			case '/yesterday':
+				const { startOfYesterday, endOfYesterday } = getYesterday();
+				dispatch(
+					calendarActions.setCalendarState([
+						new Date(startOfYesterday * 1000).toUTCString(),
+						new Date(endOfYesterday * 1000).toUTCString(),
+					])
+				);
+				break;
+			case '/week':
+				const { start: startWeek, end: endWeek } = getWeek();
+				dispatch(
+					calendarActions.setCalendarState([
+						new Date(startWeek * 1000).toUTCString(),
+						new Date(endWeek * 1000).toUTCString(),
+					])
+				);
+				break;
+			case '/month':
+				const { startMonth, endMonth } = getMonth();
+				dispatch(
+					calendarActions.setCalendarState([
+						new Date(startMonth * 1000).toUTCString(),
+						new Date(endMonth * 1000).toUTCString(),
+					])
+				);
+				break;
+			case '/year':
+				const { startYear, endYear } = getYear();
+				dispatch(
+					calendarActions.setCalendarState([
+						new Date(startYear * 1000).toUTCString(),
+						new Date(endYear * 1000).toUTCString(),
+					])
+				);
+				break;
+		}
+	}, [location.pathname]);
 
 	useEffect(() => {
 		if (!loading) {
@@ -57,7 +112,16 @@ const Home = () => {
 						selectsRange={true}
 						startDate={startDate ? new Date(startDate) : undefined}
 						endDate={endDate ? new Date(endDate) : undefined}
+						locale={'ru'}
 						onChange={(update) => {
+							if (
+								update[0]?.toUTCString() === update[1]?.toUTCString() &&
+								update[1] !== null &&
+								update[0] !== null
+							) {
+								update[1].setHours(23, 59, 59, 999);
+							}
+
 							dispatch(
 								calendarActions.setCalendarState([
 									update[0] ? update[0].toUTCString() : null,
@@ -87,7 +151,7 @@ const Home = () => {
 									new Date(endDate).getFullYear() &&
 							  new Date(startDate).getMonth() ===
 									new Date(endDate).getMonth() &&
-							  new Date(startDate).getDay() === new Date(endDate).getDay()
+							  new Date(startDate).getDate() === new Date(endDate).getDate()
 								? `${new Date(startDate).toLocaleDateString('ru-Ru', {
 										day: '2-digit',
 										month: 'short',
