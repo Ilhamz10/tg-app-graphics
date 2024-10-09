@@ -62,6 +62,8 @@ const LineChart: FC<ILineChart> = ({
 										chartContext.w.config.series[0].data[dataPointIndex];
 									setTitle(data.y);
 									setDate(data.label);
+									window.Telegram?.WebApp.HapticFeedback.impactOccurred("light");
+
 
 									// if (chartData[0].y === 0) setPercentage(0);
 									// else
@@ -111,6 +113,8 @@ const LineChart: FC<ILineChart> = ({
 
 							setTitle(data.y);
 							setDate(data.label);
+
+							window.Telegram?.WebApp.HapticFeedback.impactOccurred("light");
 
 							if (chartData[0].y === 0) setPercentage(0);
 							else
