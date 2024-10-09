@@ -44,21 +44,32 @@ const Table = () => {
 
 	return (
 		<div className='w-full grid grid-cols-[8ch,repeat(5,auto)] text-center'>
-			<Thead sortParams={sortParams} setSortParams={setSortParams} />
-			{isSuccess &&
-				data.result &&
-				data.result.projects.map((project) => (
-					<Tbody
-						tbody={{
-							bots: project.bot_username,
-							ca: project.conversion,
-							payments: project.payments_count,
-							pdp: project.per_client_price,
-							profit: project.income_total,
-							users: project.users_count,
-						}}
-					/>
-				))}
+			{isSuccess && data.result && data.result.projects.length > 0 ? (
+				<>
+					<Thead sortParams={sortParams} setSortParams={setSortParams} />
+					{data.result.projects.map((project) => (
+						<Tbody
+							key={project.bot_username}
+							tbody={{
+								bots: project.bot_username,
+								ca: project.conversion,
+								payments: project.payments_count,
+								pdp: project.per_client_price,
+								profit: project.income_total,
+								users: project.users_count,
+							}}
+						/>
+					))}
+				</>
+			) : (
+				<>
+
+					{/* Тут должен быть эмодзи: (apple robot_1f916) */}
+					<h1 className="col-span-full text-center mt-9">
+						🤖 Нет доступных ботов
+					</h1>
+				</>
+			)}
 		</div>
 	);
 };
