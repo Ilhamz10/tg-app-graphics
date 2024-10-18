@@ -42,7 +42,7 @@ const LineChart: FC<ILineChart> = ({
 				},
 				chart: {
 					type: 'line',
-					height: 200,
+					height: '200px',
 					zoom: {
 						enabled: false,
 					},
