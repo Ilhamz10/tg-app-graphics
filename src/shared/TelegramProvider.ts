@@ -44,4 +44,80 @@ export const TelegramProvider = {
 			backButton?.show();
 		}
 	},
+
+	biometricInit: () => {
+		const biometricManager = window?.Telegram?.WebApp?.BiometricManager;
+		if (biometricManager && !TelegramProvider.biometricInited) {
+			TelegramProvider.biometricInited = true;
+			window.Telegram.WebApp.onEvent('biometricManagerUpdated', () => {
+				console.log('Biometric Manager Updated');
+			});
+			biometricManager.init();
+		}
+	},
+
+	biometricRequestAccess: () => {
+		const biometricManager = window?.Telegram?.WebApp?.BiometricManager;
+		if (!biometricManager?.isInited) {
+			console.warn('Biometric not inited yet!');
+			return;
+		}
+
+		biometricManager.requestAccess({ reason: 'The bot uses biometrics for testing purposes.' }, (accessGranted) => {
+			if (accessGranted) {
+				console.log('Access granted');
+			} else {
+				console.warn('Access denied');
+			}
+		});
+	},
+
+	biometricRequestAuth: () => {
+		const biometricManager = window?.Telegram?.WebApp?.BiometricManager;
+		if (!biometricManager?.isInited) {
+			console.warn('Biometric not inited yet!');
+			return;
+		}
+
+		biometricManager.authenticate({ reason: 'The bot requests biometrics for testing purposes.' }, (success, token) => {
+			if (success) {
+				console.log(`Authentication successful, token: ${token}`);
+			} else {
+				console.warn('Authentication failed');
+			}
+		});
+	},
+
+	biometricSetToken: () => {
+		const biometricManager = window?.Telegram?.WebApp?.BiometricManager;
+		if (!biometricManager?.isInited) {
+			console.warn('Biometric not inited yet!');
+			return;
+		}
+
+		const token = parseInt(Math.random().toString().substring(2)).toString(16);
+		biometricManager.updateBiometricToken(token, (updated) => {
+			if (updated) {
+				console.log(`Token updated: ${token}`);
+			} else {
+				console.warn('Failed to update token');
+			}
+		});
+	},
+
+	biometricRemoveToken: () => {
+		const biometricManager = window?.Telegram?.WebApp?.BiometricManager;
+		if (!biometricManager?.isInited) {
+			console.warn('Biometric not inited yet!');
+			return;
+		}
+
+		biometricManager.updateBiometricToken('', (updated) => {
+			if (updated) {
+				console.log('Token removed');
+			} else {
+				console.warn('Failed to remove token');
+			}
+		});
+	},
 };

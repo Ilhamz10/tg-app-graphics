@@ -43,7 +43,7 @@ const Table = () => {
 	}, [sortParams]);
 
 	return (
-		<div className='w-full grid grid-cols-[8ch,repeat(5,auto)] text-center'>
+		<div className='w-full grid grid-cols-[8ch,repeat(5,auto)] text-center overflow-auto'>
 			<Thead sortParams={sortParams} setSortParams={setSortParams} />
 			{isSuccess &&
 				data.result &&

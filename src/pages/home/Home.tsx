@@ -9,6 +9,7 @@ import { calendarActions } from '../../store/calendar-slice';
 import Loading from '../loading/loading';
 import { uiActions } from '../../store/ui-slice';
 import { ru } from 'date-fns/locale';
+import {TelegramProvider} from '../../shared/TelegramProvider';
 import { getMonth, getToday, getWeek, getYear, getYesterday } from '../../utils/getDateByTimestamp';
 
 registerLocale('ru', ru);
@@ -19,6 +20,8 @@ export let tabs = [
 ];
 
 const Home = () => {
+
+
 	const { activeTab } = useAppSelector((state) => state.uiReducer);
 	const location = useLocation();
 	const datePickerRef = useRef<any>(null);
@@ -99,6 +102,13 @@ const Home = () => {
 		}
 	}, [calendarIsOpen, loading]);
 
+	const handleTabClick = (tabId: "complete" | "bots") => {
+		if (activeTab !== tabId) {
+			window.Telegram?.WebApp.HapticFeedback.selectionChanged();
+			dispatch(uiActions.setActiveTab(tabId));
+		}
+	};
+
 	return (
 		<>
 			{loading && <Loading />}
@@ -149,20 +159,20 @@ const Home = () => {
 						{startDate && endDate
 							? new Date(startDate).getFullYear() ===
 									new Date(endDate).getFullYear() &&
-							  new Date(startDate).getMonth() ===
+								new Date(startDate).getMonth() ===
 									new Date(endDate).getMonth() &&
-							  new Date(startDate).getDate() === new Date(endDate).getDate()
-								? `${new Date(startDate).toLocaleDateString('ru-Ru', {
+								new Date(startDate).getDate() === new Date(endDate).getDate()
+									? `${new Date(startDate).toLocaleDateString('ru-Ru', {
 										day: '2-digit',
 										month: 'short',
-								  })}`
-								: `${new Date(startDate).toLocaleDateString('ru-Ru', {
+									})}`
+									: `${new Date(startDate).toLocaleDateString('ru-Ru', {
 										day: '2-digit',
 										month: 'short',
-								  })} - ${new Date(endDate).toLocaleDateString('ru-Ru', {
+									})} - ${new Date(endDate).toLocaleDateString('ru-Ru', {
 										day: '2-digit',
 										month: 'short',
-								  })}`
+									})}`
 							: 'Выберите дату'}
 					</p>
 				</div>
@@ -170,9 +180,7 @@ const Home = () => {
 					{tabs.map((tab) => (
 						<button
 							key={tab.id}
-							onClick={() =>
-								dispatch(uiActions.setActiveTab(tab.id as 'complete' | 'bots'))
-							}
+							onClick={() => handleTabClick(tab.id as 'complete' | 'bots')}
 							className={`relative rounded-lg px-3 py-1.5 text-sm font-medium text-black transition`}
 							style={{
 								WebkitTapHighlightColor: 'transparent',
