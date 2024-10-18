@@ -27,7 +27,7 @@ const Loading = () => {
 	}, [calendarIsOpen]);
 
 	return (
-		<main className='wrapper pb-20 pt-4 absolute inset-0 bg-[#ebebf0]'>
+		<main className='wrapper pb-20 pt-4 absolute inset-0 bg-[#ebebf0] z-50'>
 			<header className='flex items-center justify-between mb-8'>
 				<h2 className='font-semibold text-2xl text-black mr-2'>Статистика</h2>
 				<DatePicker

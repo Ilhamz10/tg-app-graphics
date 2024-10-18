@@ -130,20 +130,6 @@ const Complete = () => {
 	return (
 		<>
 			<div className='grid gap-2 mb-8'>
-				{/* <ChartAccordion
-					maxPercentage={findMaxPercent(secondData)}
-					maxValue={secondData[secondData.length - 1].y}
-					text='Доход'
-					titleText='₽'
-					chartData={secondData}
-				/>
-				<ChartAccordion
-					maxPercentage={findMaxPercent(firstData)}
-					maxValue={firstData[firstData.length - 1].y}
-					text='Доход'
-					titleText='₽'
-					chartData={firstData}
-				/> */}
 				{incomeChartIsSuccess && incomeChart.result.graph.length > 0 && (
 					<ChartAccordion
 						maxPercentage={findMaxPercent(incomeChart.result.graph)}

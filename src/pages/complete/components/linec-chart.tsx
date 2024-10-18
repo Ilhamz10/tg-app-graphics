@@ -62,17 +62,6 @@ const LineChart: FC<ILineChart> = ({
 										chartContext.w.config.series[0].data[dataPointIndex];
 									setTitle(data.y);
 									setDate(data.label);
-
-									// if (chartData[0].y === 0) setPercentage(0);
-									// else
-									// 	setPercentage(
-									// 		Number(
-									// 			(
-									// 				((data.y - chartData[0].y) / chartData[0].y) *
-									// 				100
-									// 			).toFixed(2)
-									// 		)
-									// 	);
 									const index = data.x;
 									const firstValue = chartData.find((chdata) => chdata.y > 0);
 
