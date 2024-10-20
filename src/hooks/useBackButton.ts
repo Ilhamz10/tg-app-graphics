@@ -14,7 +14,7 @@ const useBackButton = () => {
       return;
     }
 
-    if (location.pathname !== '/') {
+    if (location.pathname !== '/' && false) {
       tg.BackButton.show();
       tg.BackButton.onClick(handleBackButton);
     } else {

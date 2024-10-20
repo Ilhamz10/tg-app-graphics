@@ -155,7 +155,7 @@ const Home = () => {
 						shouldCloseOnSelect={false}
 						maxDate={new Date()}
 					/>
-					<p className='px-[6px] py-1 bg-secondaryBgColor text-linkColor font-medium rounded-lg cursor-pointer'>
+					<p className='px-[6px] py-1 bg-bgColor text-linkColor font-medium rounded-lg cursor-pointer'>
 						{startDate && endDate
 							? new Date(startDate).getFullYear() ===
 									new Date(endDate).getFullYear() &&
@@ -176,7 +176,7 @@ const Home = () => {
 							: 'Выберите дату'}
 					</p>
 				</div>
-				<div className='grid grid-cols-2 p-[2px] rounded-lg bg-secondaryBgColor mb-5'>
+				<div className='grid grid-cols-2 p-[2px] rounded-lg bg-[#DCDCE2] mb-5'>
 					{tabs.map((tab) => (
 						<button
 							key={tab.id}
