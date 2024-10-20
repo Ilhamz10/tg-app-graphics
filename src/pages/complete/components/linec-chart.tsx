@@ -24,9 +24,10 @@ const LineChart: FC<ILineChart> = ({
 			series={[
 				{
 					name: 'Data Series',
-					data: chartData.map((data) => ({ ...data, title: 'xuy' })),
+					data: chartData.map((data) => ({ ...data, title: 'test' })),
 				},
 			]}
+			height={200}
 			options={{
 				grid: {
 					xaxis: {
@@ -42,7 +43,7 @@ const LineChart: FC<ILineChart> = ({
 				},
 				chart: {
 					type: 'line',
-					height: '200px',
+					height: 200,
 					zoom: {
 						enabled: false,
 					},
