@@ -144,9 +144,10 @@ const Complete = () => {
 				{clientsChartIsSuccess && clientsChart.result.graph.length > 0 && (
 					<ChartAccordion
 						maxPercentage={findMaxPercent(clientsChart.result.graph)}
-						maxValue={
-							clientsChart.result.graph[clientsChart.result.graph.length - 1].y
-						}
+						maxValue={clientsChart.result.graph.reduce(
+							(acc, graph) => acc + graph.y,
+							0
+						)}
 						text='Пользователи'
 						titleText='пдп'
 						chartData={clientsChart.result.graph}
