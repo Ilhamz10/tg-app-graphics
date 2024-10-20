@@ -51,14 +51,14 @@ const AccordionCard: FC<IAcordionCard> = ({
 	}, [isOpen]);
 
 	return (
-		<div className='bg-white rounded-lg'>
+		<div className='bg-bgColor rounded-lg'>
 			<div
 				onClick={() => setIsOpen((prev) => !prev)}
 				className='flex items-center justify-between pr-6'>
 				<div className='grid gap-3 p-4 flex-1'>
 					<h2 className='text-2xl font-semibold text-black'>{title}</h2>
 					<div className='grid grid-cols-[auto,auto,1fr] gap-1 items-center w-full'>
-						<p className='font-medium text-gray'>{text}</p>
+						<p className='font-medium text-subtitleColor'>{text}</p>
 						<p
 							className={`font-semibold grid grid-cols-[auto,auto] w-max gap-1 items-center ${
 								type === 'good' ? 'text-green' : 'text-red'
@@ -70,7 +70,7 @@ const AccordionCard: FC<IAcordionCard> = ({
 								height={11}
 							/>
 						</p>
-						{isOpen && <p className='font-medium text-gray'>{date}</p>}
+						{isOpen && <p className='font-medium text-subtitleColor'>{date}</p>}
 					</div>
 				</div>
 				<ArrowDown

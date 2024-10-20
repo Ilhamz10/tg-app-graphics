@@ -20,8 +20,8 @@ const Footer = () => {
 	}
 
 	return (
-		<footer className='fixed left-0 right-0 bottom-0'>
-			<ul className='relative flex items-center justify-between px-4 pt-4 pb-3 bg-white '>
+		<footer className='fixed left-0 right-0 bottom-0 z-[99999999]'>
+			<ul className='relative flex items-center justify-between px-4 pt-4 pb-3 bg-bgColor '>
 				{routes.map((route) => (
 					<li
 						key={route.to}
@@ -30,7 +30,7 @@ const Footer = () => {
 							onClick={route.to === '/choice' ? toggleCalendar : () => {}}
 							className={({ isActive }) =>
 								`text-sm font-medium relative z-10 transition-[top] ${
-									isActive ? 'text-blue -top-8' : 'text-gray top-0'
+									isActive ? 'text-linkColor -top-8' : 'text-subtitleColor top-0'
 								}`
 							}
 							to={route.to}>
@@ -42,7 +42,7 @@ const Footer = () => {
 								transition={{
 									ease: 'linear',
 								}}
-								className='absolute w-max text-sm font-medium text-transparent h-full -left-[10px] -top-8 bg-white border-[5px] border-lightGray rounded-lg px-[5px] before:w-3 before:h-3 before:bg-white before:absolute before:top-[49%] before:-left-[16.5px] before:rounded-tr-[7px] before:shadow-[3px_-1px_0_0_#ebebf0] after:w-3 after:h-3 after:bg-white after:absolute after:top-[49%] after:-right-[16.5px] after:rounded-tl-[7px] after:shadow-[-3px_-1px_0_0_#ebebf0]'>
+								className='absolute w-max text-sm font-medium text-transparent h-full -left-[10px] -top-8 bg-bgColor border-[5px] border-secondaryBgColor rounded-lg px-[5px] before:w-3 before:h-3 before:bg-bgColor before:absolute before:top-[49%] before:-left-[16.5px] before:rounded-tr-[7px] before:shadow-[3px_-1px_0_0_var(--tg-theme-secondary-bg-color)] after:w-3 after:h-3 after:bg-bgColor after:absolute after:top-[49%] after:-right-[16.5px] after:rounded-tl-[7px] after:shadow-[-3px_-1px_0_0_var(--tg-theme-secondary-bg-color)]'>
 								{route.text}
 							</motion.div>
 						)}

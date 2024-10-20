@@ -116,7 +116,7 @@ const Home = () => {
 				className='wrapper pb-20 pt-4'
 				style={{ opacity: loading ? '0' : '1' }}>
 				<div className='flex items-center justify-between mb-8'>
-					<h2 className='font-semibold text-2xl text-black mr-2'>Статистика</h2>
+					<h2 className='font-semibold text-2xl text-textColor mr-2'>Статистика</h2>
 					<DatePicker
 						ref={datePickerRef}
 						selectsRange={true}
@@ -155,7 +155,7 @@ const Home = () => {
 						shouldCloseOnSelect={false}
 						maxDate={new Date()}
 					/>
-					<p className='px-[6px] py-1 bg-[#DCDCE2] text-blue font-medium rounded-lg cursor-pointer'>
+					<p className='px-[6px] py-1 bg-secondaryBgColor text-linkColor font-medium rounded-lg cursor-pointer'>
 						{startDate && endDate
 							? new Date(startDate).getFullYear() ===
 									new Date(endDate).getFullYear() &&
@@ -176,12 +176,12 @@ const Home = () => {
 							: 'Выберите дату'}
 					</p>
 				</div>
-				<div className='grid grid-cols-2 p-[2px] rounded-lg bg-[#DCDCE2] mb-5'>
+				<div className='grid grid-cols-2 p-[2px] rounded-lg bg-secondaryBgColor mb-5'>
 					{tabs.map((tab) => (
 						<button
 							key={tab.id}
 							onClick={() => handleTabClick(tab.id as 'complete' | 'bots')}
-							className={`relative rounded-lg px-3 py-1.5 text-sm font-medium text-black transition`}
+							className={`relative rounded-lg px-3 py-1.5 text-sm font-medium text-textColor transition`}
 							style={{
 								WebkitTapHighlightColor: 'transparent',
 							}}>
@@ -189,7 +189,7 @@ const Home = () => {
 							{activeTab === tab.id && (
 								<motion.span
 									layoutId='bubble'
-									className='absolute inset-0 z-10 bg-white rounded-[7px]'
+									className='absolute inset-0 z-10 bg-bgColor rounded-[7px]'
 									transition={{ type: 'spring', bounce: 0.2, duration: 0.6 }}
 								/>
 							)}

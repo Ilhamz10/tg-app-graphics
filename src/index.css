@@ -27,7 +27,7 @@ body {
 	height: -webkit-fill-available;
 	overflow: hidden;
 	padding: var(--sat) var(--sar) var(--sab) var(--sal);
-	background: #ebebf0;
+	background: var(--tg-theme-secondary-bg-color);
 }
 
 .wrapper {
