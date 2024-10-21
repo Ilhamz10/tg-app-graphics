@@ -7,7 +7,7 @@ const authHeader =
 
 const baseQuery = fetchBaseQuery({
 	baseUrl: api_url,
-	prepareHeaders: (headers, { endpoint }) => {
+	prepareHeaders: (headers) => {
 		if (authHeader) {
 			headers.set('X-InitData', `${authHeader}`);
 		}
