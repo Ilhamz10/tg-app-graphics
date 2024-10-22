@@ -45,6 +45,25 @@ export interface IBots {
 				conversion: number;
 				per_client_price: number;
 				income_total: number;
+				project_id_encoded: string;
+			}
+		];
+		user: {
+			user_id: number;
+			username: string;
+			first_name: string;
+			last_name: null | string;
+			language_code: string;
+		};
+	};
+}
+
+export interface IRefs {
+	result: {
+		projects: [
+			{
+				name: string;
+				joined_count: number;
 			}
 		];
 		user: {

@@ -5,6 +5,7 @@ import Thead from '../UI/thead';
 import { ISortParams } from '../../../endpoint/types';
 import { useAppDispatch, useAppSelector } from '../../../hooks/redux-hooks';
 import { uiActions } from '../../../store/ui-slice';
+import { Link } from 'react-router-dom';
 
 const Table = () => {
 	const dispatch = useAppDispatch();
@@ -44,20 +45,24 @@ const Table = () => {
 
 	return (
 		<div className='w-full grid grid-cols-[8ch,repeat(5,auto)] text-center overflow-auto'>
-			<Thead sortParams={sortParams} setSortParams={setSortParams} />
+			<Thead setSortParams={setSortParams} />
 			{isSuccess &&
 				data.result &&
 				data.result.projects.map((project) => (
-					<Tbody
-						tbody={{
-							bots: project.bot_username,
-							ca: project.conversion,
-							payments: project.payments_count,
-							pdp: project.per_client_price,
-							profit: project.income_total,
-							users: project.users_count,
-						}}
-					/>
+					<Link
+						to={`/?project_id=${project.project_id_encoded}`}
+						className='col-span-6 grid grid-cols-[8ch,repeat(5,auto)]'>
+						<Tbody
+							tbody={{
+								bots: project.bot_username,
+								ca: project.conversion,
+								payments: project.payments_count,
+								pdp: project.per_client_price,
+								profit: project.income_total,
+								users: project.users_count,
+							}}
+						/>
+					</Link>
 				))}
 		</div>
 	);

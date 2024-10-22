@@ -48,8 +48,8 @@ export const TelegramProvider = {
 
 	biometricInit: () => {
 		const biometricManager = window?.Telegram?.WebApp?.BiometricManager;
-		if (biometricManager && !TelegramProvider.biometricInited) {
-			TelegramProvider.biometricInited = true;
+		if (biometricManager && !(TelegramProvider as any).biometricInited) {
+			(TelegramProvider as any).biometricInited = true;
 			window.Telegram.WebApp.onEvent('biometricManagerUpdated', () => {
 				console.log('Biometric Manager Updated');
 			});
@@ -64,13 +64,16 @@ export const TelegramProvider = {
 			return;
 		}
 
-		biometricManager.requestAccess({ reason: 'The bot uses biometrics for testing purposes.' }, (accessGranted) => {
-			if (accessGranted) {
-				console.log('Access granted');
-			} else {
-				console.warn('Access denied');
+		biometricManager.requestAccess(
+			{ reason: 'The bot uses biometrics for testing purposes.' },
+			(accessGranted: any) => {
+				if (accessGranted) {
+					console.log('Access granted');
+				} else {
+					console.warn('Access denied');
+				}
 			}
-		});
+		);
 	},
 
 	biometricRequestAuth: () => {
@@ -80,13 +83,16 @@ export const TelegramProvider = {
 			return;
 		}
 
-		biometricManager.authenticate({ reason: 'The bot requests biometrics for testing purposes.' }, (success, token) => {
-			if (success) {
-				console.log(`Authentication successful, token: ${token}`);
-			} else {
-				console.warn('Authentication failed');
+		biometricManager.authenticate(
+			{ reason: 'The bot requests biometrics for testing purposes.' },
+			(success: any, token: any) => {
+				if (success) {
+					console.log(`Authentication successful, token: ${token}`);
+				} else {
+					console.warn('Authentication failed');
+				}
 			}
-		});
+		);
 	},
 
 	biometricSetToken: () => {
@@ -97,7 +103,7 @@ export const TelegramProvider = {
 		}
 
 		const token = parseInt(Math.random().toString().substring(2)).toString(16);
-		biometricManager.updateBiometricToken(token, (updated) => {
+		biometricManager.updateBiometricToken(token, (updated: any) => {
 			if (updated) {
 				console.log(`Token updated: ${token}`);
 			} else {
@@ -113,7 +119,7 @@ export const TelegramProvider = {
 			return;
 		}
 
-		biometricManager.updateBiometricToken('', (updated) => {
+		biometricManager.updateBiometricToken('', (updated: any) => {
 			if (updated) {
 				console.log('Token removed');
 			} else {

@@ -20,9 +20,8 @@ type typeSort =
 	| 'income_total';
 
 const Thead: FC<{
-	sortParams: ISortParams;
 	setSortParams: React.Dispatch<React.SetStateAction<ISortParams>>;
-}> = ({ sortParams, setSortParams }) => {
+}> = ({ setSortParams }) => {
 	const [usersCountSort, setUsersCountSort] = useState(true);
 	const [paymentsCountSort, setPaymentsCountSort] = useState(false);
 	const [conversionSort, setConversionSort] = useState(false);
@@ -71,11 +70,11 @@ const Thead: FC<{
 
 	return (
 		<>
-			<p className='text-[#8E8E93] max-w-[9ch] min-w-[7ch] text-sm font-medium px-1 mb-3 flex items-center justify-center'>
+			<p className='text-textColor max-w-[9ch] min-w-[7ch] text-sm font-medium px-1 mb-3 flex items-center justify-center'>
 				Боты
 			</p>
 			<p
-				className='text-[#8E8E93] text-sm font-medium px-1 mb-3 flex items-center justify-center'
+				className='text-textColor text-sm font-medium px-1 mb-3 flex items-center justify-center'
 				onClick={() => handleSort('users_count')}>
 				Польз.
 				<motion.span
@@ -85,7 +84,7 @@ const Thead: FC<{
 				</motion.span>
 			</p>
 			<p
-				className='text-[#8E8E93] text-sm font-medium px-1 mb-3 flex items-center justify-center'
+				className='text-textColor text-sm font-medium px-1 mb-3 flex items-center justify-center'
 				onClick={() => handleSort('payments_count')}>
 				Оплаты
 				<motion.span
@@ -95,7 +94,7 @@ const Thead: FC<{
 				</motion.span>
 			</p>
 			<p
-				className='text-[#8E8E93] text-sm font-medium px-1 mb-3 flex items-center justify-center'
+				className='text-textColor text-sm font-medium px-1 mb-3 flex items-center justify-center'
 				onClick={() => handleSort('conversion')}>
 				CA
 				<motion.span
@@ -105,7 +104,7 @@ const Thead: FC<{
 				</motion.span>
 			</p>
 			<p
-				className='text-[#8E8E93] text-sm font-medium px-1 mb-3 flex items-center justify-center'
+				className='text-textColor text-sm font-medium px-1 mb-3 flex items-center justify-center'
 				onClick={() => handleSort('per_client_price')}>
 				₽/ПДП
 				<motion.span
@@ -115,7 +114,7 @@ const Thead: FC<{
 				</motion.span>
 			</p>
 			<p
-				className='text-black text-sm font-medium px-1 mb-3 flex items-center justify-center'
+				className='text-textColor text-sm font-medium px-1 mb-3 flex items-center justify-center'
 				onClick={() => handleSort('income_total')}>
 				Доход{' '}
 				<motion.span
