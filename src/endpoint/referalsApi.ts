@@ -1,5 +1,5 @@
 import { baseApi } from '../api/api';
-import { IRefs, ISortParams } from './types';
+import { IDateParams, IRefs, ISortParams } from './types';
 
 interface IRefQueryParams {
 	project_id_encoded: string;
@@ -7,23 +7,27 @@ interface IRefQueryParams {
 
 const referalsApi = baseApi.injectEndpoints({
 	endpoints: (build) => ({
-		getBotReferals: build.query<IRefs, ISortParams & IRefQueryParams>({
+		getBotReferals: build.query<
+			IRefs,
+			ISortParams & IRefQueryParams & IDateParams
+		>({
 			query: ({
 				order,
 				sort_by,
 				project_id_encoded,
-				// start_date,
-				// end_date,
-				// tz
+				start_date,
+				end_date,
+				tz,
 			}) => ({
 				url: '/refferals/',
 				params: {
 					order,
 					sort_by,
 					project_id_encoded,
-					// start_date,
-					// end_date,
-					// tz,
+					need_to_validate: false,
+					start_date,
+					end_date,
+					tz,
 				},
 			}),
 		}),

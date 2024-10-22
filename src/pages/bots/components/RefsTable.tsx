@@ -21,9 +21,9 @@ const RefsTable = () => {
 			order: sortParams.order,
 			sort_by: sortParams.sort_by,
 			project_id_encoded: searchParams.get('project_id') as string,
-			// start_date: dateValue.start_date as number,
-			// end_date: dateValue.end_date as number,
-			// tz: Intl.DateTimeFormat().resolvedOptions().timeZone,
+			start_date: dateValue.start_date as number,
+			end_date: dateValue.end_date as number,
+			tz: Intl.DateTimeFormat().resolvedOptions().timeZone,
 		},
 		{
 			skip:
@@ -53,12 +53,12 @@ const RefsTable = () => {
 				data.result.projects.map((refLink) => (
 					<Tbody
 						tbody={{
-							bots: refLink.name,
-							ca: '', //project.conversion,
-							payments: '', //project.payments_count,
-							pdp: '', //project.per_client_price,
-							profit: '', //project.income_total,
-							users: '', //project.users_count,
+							bots: refLink.link_name,
+							ca: refLink.conversion, //project.conversion,
+							payments: refLink.payments_count, //project.payments_count,
+							pdp: refLink.per_client_price, //project.per_client_price,
+							profit: refLink.income_total, //project.income_total,
+							users: refLink.users_count, //project.users_count,
 						}}
 					/>
 				))}

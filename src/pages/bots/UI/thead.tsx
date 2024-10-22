@@ -2,6 +2,7 @@ import React, { FC, useState } from 'react';
 import { UpDownArrows } from '../../../assets';
 import { motion } from 'framer-motion';
 import { ISortParams } from '../../../endpoint/types';
+import { useSearchParams } from 'react-router-dom';
 
 const arrowVariants = {
 	up: {
@@ -22,6 +23,8 @@ type typeSort =
 const Thead: FC<{
 	setSortParams: React.Dispatch<React.SetStateAction<ISortParams>>;
 }> = ({ setSortParams }) => {
+	const [searchParams] = useSearchParams();
+
 	const [usersCountSort, setUsersCountSort] = useState(true);
 	const [paymentsCountSort, setPaymentsCountSort] = useState(false);
 	const [conversionSort, setConversionSort] = useState(false);
@@ -71,7 +74,7 @@ const Thead: FC<{
 	return (
 		<>
 			<p className='text-textColor max-w-[9ch] min-w-[7ch] text-sm font-medium px-1 mb-3 flex items-center justify-center'>
-				Боты
+				{searchParams.get('project_id') ? 'Реф' : 'Боты'}
 			</p>
 			<p
 				className='text-textColor text-sm font-medium px-1 mb-3 flex items-center justify-center'

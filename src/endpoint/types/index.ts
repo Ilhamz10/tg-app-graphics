@@ -62,8 +62,12 @@ export interface IRefs {
 	result: {
 		projects: [
 			{
-				name: string;
-				joined_count: number;
+				link_name: string;
+				users_count: number;
+				payments_count: number;
+				conversion: number;
+				per_client_price: number;
+				income_total: number;
 			}
 		];
 		user: {
