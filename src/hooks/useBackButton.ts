@@ -25,7 +25,7 @@ const useBackButton = () => {
 		return () => {
 			tg.BackButton.offClick(handleBackButton);
 		};
-	}, [location.pathname, navigate]);
+	}, [location.pathname, navigate, searchParams.get('project_id')]);
 };
 
 export default useBackButton;

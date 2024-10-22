@@ -8,6 +8,7 @@ import CompleteLoading from './components/complete-loading';
 import BotsLoading from './components/bots-loading';
 import { uiActions } from '../../store/ui-slice';
 import { ru } from 'date-fns/locale';
+import { useNavigate } from 'react-router-dom';
 
 registerLocale('ru', ru);
 
@@ -29,7 +30,9 @@ const Loading = () => {
 	return (
 		<main className='wrapper pb-20 pt-4 absolute inset-0 bg-secondaryBgColor z-50'>
 			<header className='flex items-center justify-between mb-8'>
-				<h2 className='font-semibold text-2xl text-textColor mr-2'>Статистика</h2>
+				<h2 className='font-semibold text-2xl text-textColor mr-2'>
+					Статистика
+				</h2>
 				<DatePicker
 					ref={datePickerRef}
 					selectsRange={true}
