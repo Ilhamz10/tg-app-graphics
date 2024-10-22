@@ -10,6 +10,7 @@ export const TelegramProvider = {
 			tg.enableClosingConfirmation();
 			tg.setBackgroundColor('#1b1b1b');
 			tg.disableVerticalSwipes();
+			tg.setHeaderColor('secondary_bg_color');
 		}
 	},
 

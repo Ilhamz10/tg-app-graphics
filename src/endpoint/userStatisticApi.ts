@@ -25,7 +25,7 @@ const userStatisticApi = baseApi.injectEndpoints({
 		}),
 		getIncomeStatistic: build.query<IStatisticGraphic, IDateParams>({
 			query: ({ end_date, start_date, tz }) => ({
-				url: '/statistic/clients', //Здесь поменять на нужный эндпоинт
+				url: '/statistic/icnome', //Здесь поменять на нужный эндпоинт
 				params: {
 					start_date,
 					end_date,
@@ -35,7 +35,7 @@ const userStatisticApi = baseApi.injectEndpoints({
 		}),
 		getPaymentsCountStatistic: build.query<IStatisticGraphic, IDateParams>({
 			query: ({ end_date, start_date, tz }) => ({
-				url: '/statistic/icnome', //Здесь поменять на нужный эндпоинт
+				url: '/statistic/payments', //Здесь поменять на нужный эндпоинт
 				params: {
 					start_date,
 					end_date,

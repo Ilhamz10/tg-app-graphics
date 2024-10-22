@@ -19,8 +19,8 @@ export function findPercent(
 	// 	} else return 100;
 	// } else
 	if (maxValue === 0) return 0;
-	return (
+	return +(
 		Number((((value - maxValue) / maxValue) * 100).toFixed(2)) +
 		(isFirstZero ? 100 : 0)
-	);
+	).toFixed(0);
 }

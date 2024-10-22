@@ -66,7 +66,6 @@ const LineChart: FC<ILineChart> = ({
 
 									window.Telegram?.WebApp.HapticFeedback.impactOccurred("light");
 
-									const index = data.x;
 									const firstValue = chartData.find((chdata) => chdata.y > 0);
 
 									if (chartData[0].y === 0) {
@@ -83,15 +82,15 @@ const LineChart: FC<ILineChart> = ({
 									lastHoveredPoint.current = dataPointIndex;
 
 									// Optionally vibrate the device when the user hovers over a new data point
-									navigator.vibrate =
-										navigator.vibrate ||
-										(navigator as any).webkitVibrate ||
-										(navigator as any).mozVibrate ||
-										(navigator as any).msVibrate;
+									// navigator.vibrate =
+									// 	navigator.vibrate ||
+									// 	(navigator as any).webkitVibrate ||
+									// 	(navigator as any).mozVibrate ||
+									// 	(navigator as any).msVibrate;
 										
-									if (navigator.vibrate) {
-										navigator.vibrate(400);
-									}
+									// if (navigator.vibrate) {
+									// 	navigator.vibrate(400);
+									// }
 								}
 							}
 						},
@@ -105,21 +104,22 @@ const LineChart: FC<ILineChart> = ({
 							setTitle(data.y);
 							setDate(data.label);
 
-							window.Telegram?.WebApp.HapticFeedback.impactOccurred("light");
-
-							if (chartData[0].y === 0) setPercentage(0);
-							else
-								setPercentage(
-									Number(
-										(
-											((data.y - chartData[0].y) / chartData[0].y) *
-											100
-										).toFixed(2)
-									)
-								);
-							if (navigator.vibrate) {
-								navigator.vibrate(200);
+							const firstValue = chartData.find((chdata) => chdata.y > 0);
+							
+							if (chartData[0].y === 0) {
+								if (firstValue) {
+									setPercentage(findPercent(data.y, firstValue.y, true));
+								} else {
+									setPercentage(findPercent(data.y, chartData[0].y, true));
+								}
+							} else {
+								setPercentage(findPercent(data.y, chartData[0].y, false));
 							}
+							
+							window.Telegram?.WebApp.HapticFeedback.impactOccurred("light");
+							// if (navigator.vibrate) {
+							// 	navigator.vibrate(200);
+							// }
 						},
 					},
 				},
