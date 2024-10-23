@@ -133,9 +133,10 @@ const Complete = () => {
 				{incomeChartIsSuccess && incomeChart.result.graph.length > 0 && (
 					<ChartAccordion
 						maxPercentage={findMaxPercent(incomeChart.result.graph)}
-						maxValue={
-							incomeChart.result.graph[incomeChart.result.graph.length - 1].y
-						}
+						maxValue={incomeChart.result.graph.reduce(
+							(acc, graph) => acc + graph.y,
+							0
+						)}
 						text='Доход'
 						titleText='₽'
 						chartData={incomeChart.result.graph}
@@ -157,11 +158,10 @@ const Complete = () => {
 					paymentsCountChart.result.graph.length > 0 && (
 						<ChartAccordion
 							maxPercentage={findMaxPercent(paymentsCountChart.result.graph)}
-							maxValue={
-								paymentsCountChart.result.graph[
-									paymentsCountChart.result.graph.length - 1
-								].y
-							}
+							maxValue={paymentsCountChart.result.graph.reduce(
+								(acc, graph) => acc + graph.y,
+								0
+							)}
 							text='Оплаты'
 							titleText='шт'
 							chartData={paymentsCountChart.result.graph}
