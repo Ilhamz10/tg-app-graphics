@@ -1,11 +1,11 @@
-import { useSearchParams } from 'react-router-dom';
 import Table from './components/table';
 import RefsTable from './components/RefsTable';
+import { useAppSelector } from '../../hooks/redux-hooks';
 
 const Bots = () => {
-	const [searchParams] = useSearchParams();
+	const { refId } = useAppSelector((state) => state.uiReducer);
 
-	if (searchParams.get('project_id')) return <RefsTable />;
+	if (refId) return <RefsTable />;
 	return <Table />;
 };
 

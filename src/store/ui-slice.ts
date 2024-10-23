@@ -3,11 +3,13 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 export interface IUISlice {
 	loading: boolean;
 	activeTab: 'complete' | 'bots';
+	refId: null | string;
 }
 
 const initialState: IUISlice = {
 	loading: false,
 	activeTab: 'complete',
+	refId: null,
 };
 
 const uiSlice = createSlice({
@@ -19,6 +21,9 @@ const uiSlice = createSlice({
 		},
 		setActiveTab(state, action: PayloadAction<'complete' | 'bots'>) {
 			state.activeTab = action.payload;
+		},
+		setRefId(state, action: PayloadAction<string | null>) {
+			state.refId = action.payload;
 		},
 	},
 });

@@ -1,15 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Tbody from '../UI/tbody';
 import Thead from '../UI/thead';
 import { uiActions } from '../../../store/ui-slice';
 import { useGetBotReferalsQuery } from '../../../endpoint/referalsApi';
 import { useAppDispatch, useAppSelector } from '../../../hooks/redux-hooks';
 import { ISortParams } from '../../../endpoint/types';
-import { useSearchParams } from 'react-router-dom';
 
 const RefsTable = () => {
 	const dispatch = useAppDispatch();
-	const [searchParams] = useSearchParams();
+	const { refId } = useAppSelector((state) => state.uiReducer);
 	const { dateValue } = useAppSelector((state) => state.calendarReducer);
 	const [sortParams, setSortParams] = useState<ISortParams>({
 		order: 'asc',
@@ -20,7 +19,7 @@ const RefsTable = () => {
 		{
 			order: sortParams.order,
 			sort_by: sortParams.sort_by,
-			project_id_encoded: searchParams.get('project_id') as string,
+			project_id_encoded: refId as string,
 			start_date: dateValue.start_date as number,
 			end_date: dateValue.end_date as number,
 			tz: Intl.DateTimeFormat().resolvedOptions().timeZone,
@@ -54,11 +53,11 @@ const RefsTable = () => {
 					<Tbody
 						tbody={{
 							bots: refLink.link_name,
-							ca: refLink.conversion, //project.conversion,
-							payments: refLink.payments_count, //project.payments_count,
-							pdp: refLink.per_client_price, //project.per_client_price,
-							profit: refLink.income_total, //project.income_total,
-							users: refLink.users_count, //project.users_count,
+							ca: refLink.conversion,
+							payments: refLink.payments_count,
+							pdp: refLink.per_client_price,
+							profit: refLink.income_total,
+							users: refLink.users_count,
 						}}
 					/>
 				))}

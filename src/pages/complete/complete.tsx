@@ -39,7 +39,6 @@ const firstData = [
 ];
 
 const Complete = () => {
-	const location = useLocation();
 	const { dateValue } = useAppSelector((state) => state.calendarReducer);
 	const dispatch = useAppDispatch();
 

@@ -5,7 +5,6 @@ import Thead from '../UI/thead';
 import { ISortParams } from '../../../endpoint/types';
 import { useAppDispatch, useAppSelector } from '../../../hooks/redux-hooks';
 import { uiActions } from '../../../store/ui-slice';
-import { Link } from 'react-router-dom';
 
 const Table = () => {
 	const dispatch = useAppDispatch();
@@ -49,8 +48,10 @@ const Table = () => {
 			{isSuccess &&
 				data.result &&
 				data.result.projects.map((project) => (
-					<Link
-						to={`?project_id=${project.project_id_encoded}`}
+					<div
+						onClick={() =>
+							dispatch(uiActions.setRefId(project.project_id_encoded))
+						}
 						className='col-span-6 grid grid-cols-[8ch,repeat(5,auto)]'>
 						<Tbody
 							tbody={{
@@ -62,7 +63,7 @@ const Table = () => {
 								users: project.users_count,
 							}}
 						/>
-					</Link>
+					</div>
 				))}
 		</div>
 	);
