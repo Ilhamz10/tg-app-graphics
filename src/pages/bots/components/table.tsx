@@ -50,7 +50,7 @@ const Table = () => {
 				data.result &&
 				data.result.projects.map((project) => (
 					<Link
-						to={`/?project_id=${project.project_id_encoded}`}
+						to={`?project_id=${project.project_id_encoded}`}
 						className='col-span-6 grid grid-cols-[8ch,repeat(5,auto)]'>
 						<Tbody
 							tbody={{
