@@ -55,7 +55,7 @@ const AccordionCard: FC<IAcordionCard> = ({
 			<div
 				onClick={() => setIsOpen((prev) => !prev)}
 				className='flex items-center justify-between pr-6'>
-				<div className={`grid gap-3 p-4 flex-1 ${isOpen ? 'pb-0' : ''}`}>
+				<div className={`grid gap-3 p-4 flex-1`}>
 					<h2 className='text-2xl font-semibold text-textColor'>{title}</h2>
 					<div className='grid grid-cols-[auto,auto,1fr] gap-1 items-center w-full'>
 						<p className='font-medium text-subtitleColor'>{text}</p>
