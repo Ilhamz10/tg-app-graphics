@@ -9,8 +9,14 @@ import { calendarActions } from '../../store/calendar-slice';
 import Loading from '../loading/loading';
 import { uiActions } from '../../store/ui-slice';
 import { ru } from 'date-fns/locale';
-import {TelegramProvider} from '../../shared/TelegramProvider';
-import { getMonth, getToday, getWeek, getYear, getYesterday } from '../../utils/getDateByTimestamp';
+import { TelegramProvider } from '../../shared/TelegramProvider';
+import {
+	getMonth,
+	getToday,
+	getWeek,
+	getYear,
+	getYesterday,
+} from '../../utils/getDateByTimestamp';
 
 registerLocale('ru', ru);
 
@@ -20,18 +26,16 @@ export let tabs = [
 ];
 
 const Home = () => {
-
-
-	const { activeTab } = useAppSelector((state) => state.uiReducer);
+	const { activeTab, loading, refId } = useAppSelector(
+		(state) => state.uiReducer
+	);
+	const { calendarState, calendarIsOpen } = useAppSelector(
+		(state) => state.calendarReducer
+	);
 	const location = useLocation();
 	const datePickerRef = useRef<any>(null);
-
-	const { loading } = useAppSelector((state) => state.uiReducer);
-
-	const { calendarIsOpen } = useAppSelector((state) => state.calendarReducer);
 	const dispatch = useAppDispatch();
 
-	const { calendarState } = useAppSelector((state) => state.calendarReducer);
 	const [startDate, endDate] = calendarState;
 
 	useEffect(() => {
@@ -102,7 +106,7 @@ const Home = () => {
 		}
 	}, [calendarIsOpen, loading]);
 
-	const handleTabClick = (tabId: "complete" | "bots") => {
+	const handleTabClick = (tabId: 'complete' | 'bots') => {
 		if (activeTab !== tabId) {
 			window.Telegram?.WebApp.HapticFeedback.selectionChanged();
 			dispatch(uiActions.setActiveTab(tabId));
@@ -116,7 +120,9 @@ const Home = () => {
 				className='wrapper pb-20 pt-4'
 				style={{ opacity: loading ? '0' : '1' }}>
 				<div className='flex items-center justify-between mb-8'>
-					<h2 className='font-semibold text-2xl text-textColor mr-2'>Статистика</h2>
+					<h2 className='font-semibold text-2xl text-textColor mr-2'>
+						Статистика
+					</h2>
 					<DatePicker
 						ref={datePickerRef}
 						selectsRange={true}
@@ -159,43 +165,45 @@ const Home = () => {
 						{startDate && endDate
 							? new Date(startDate).getFullYear() ===
 									new Date(endDate).getFullYear() &&
-								new Date(startDate).getMonth() ===
+							  new Date(startDate).getMonth() ===
 									new Date(endDate).getMonth() &&
-								new Date(startDate).getDate() === new Date(endDate).getDate()
-									? `${new Date(startDate).toLocaleDateString('ru-Ru', {
+							  new Date(startDate).getDate() === new Date(endDate).getDate()
+								? `${new Date(startDate).toLocaleDateString('ru-Ru', {
 										day: '2-digit',
 										month: 'short',
-									})}`
-									: `${new Date(startDate).toLocaleDateString('ru-Ru', {
+								  })}`
+								: `${new Date(startDate).toLocaleDateString('ru-Ru', {
 										day: '2-digit',
 										month: 'short',
-									})} - ${new Date(endDate).toLocaleDateString('ru-Ru', {
+								  })} - ${new Date(endDate).toLocaleDateString('ru-Ru', {
 										day: '2-digit',
 										month: 'short',
-									})}`
+								  })}`
 							: 'Выберите дату'}
 					</p>
 				</div>
-				<div className='grid grid-cols-2 p-[2px] rounded-lg bg-[#7878801F] mb-5'>
-					{tabs.map((tab) => (
-						<button
-							key={tab.id}
-							onClick={() => handleTabClick(tab.id as 'complete' | 'bots')}
-							className={`relative rounded-lg px-3 py-1.5 text-sm font-medium text-textColor transition`}
-							style={{
-								WebkitTapHighlightColor: 'transparent',
-							}}>
-							<span className='z-20 relative'>{tab.label}</span>
-							{activeTab === tab.id && (
-								<motion.span
-									layoutId='bubble'
-									className='absolute inset-0 z-10 bg-bgColor rounded-[7px]'
-									transition={{ type: 'spring', bounce: 0.2, duration: 0.6 }}
-								/>
-							)}
-						</button>
-					))}
-				</div>
+				{!refId && (
+					<div className='grid grid-cols-2 p-[2px] rounded-lg bg-[#7878801F] mb-5'>
+						{tabs.map((tab) => (
+							<button
+								key={tab.id}
+								onClick={() => handleTabClick(tab.id as 'complete' | 'bots')}
+								className={`relative rounded-lg px-3 py-1.5 text-sm font-medium text-textColor transition`}
+								style={{
+									WebkitTapHighlightColor: 'transparent',
+								}}>
+								<span className='z-20 relative'>{tab.label}</span>
+								{activeTab === tab.id && (
+									<motion.span
+										layoutId='bubble'
+										className='absolute inset-0 z-10 bg-bgColor rounded-[7px]'
+										transition={{ type: 'spring', bounce: 0.2, duration: 0.6 }}
+									/>
+								)}
+							</button>
+						))}
+					</div>
+				)}
 				{activeTab === 'complete' ? <Complete /> : <Bots />}
 			</main>
 		</>
