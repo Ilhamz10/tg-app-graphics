@@ -1,15 +1,6 @@
 import ChartAccordion from './components/chart-acordion';
 import { findMaxPercent } from '../../utils/findMaxPercentage';
-import { useLocation } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import { IDateParams } from '../../endpoint/types';
-import {
-	getMonth,
-	getToday,
-	getWeek,
-	getYear,
-	getYesterday,
-} from '../../utils/getDateByTimestamp';
+import { useEffect } from 'react';
 import {
 	useGetClientsStatisticQuery,
 	useGetIncomeStatisticQuery,
@@ -18,7 +9,6 @@ import {
 } from '../../endpoint/userStatisticApi';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
 import { uiActions } from '../../store/ui-slice';
-import { calendarActions } from '../../store/calendar-slice';
 
 const secondData = [
 	{ x: 0, y: 1, label: 'text' },

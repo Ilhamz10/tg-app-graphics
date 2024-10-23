@@ -40,6 +40,12 @@ const LineChart: FC<ILineChart> = ({
 							show: false,
 						},
 					},
+					padding: {
+						top: 0,
+						right: 0,
+						bottom: 0,
+						left: 0,
+					},
 				},
 				chart: {
 					type: 'line',
@@ -64,7 +70,9 @@ const LineChart: FC<ILineChart> = ({
 									setTitle(data.y);
 									setDate(data.label);
 
-									window.Telegram?.WebApp.HapticFeedback.impactOccurred("light");
+									window.Telegram?.WebApp.HapticFeedback.impactOccurred(
+										'light'
+									);
 
 									const firstValue = chartData.find((chdata) => chdata.y > 0);
 
@@ -87,7 +95,7 @@ const LineChart: FC<ILineChart> = ({
 									// 	(navigator as any).webkitVibrate ||
 									// 	(navigator as any).mozVibrate ||
 									// 	(navigator as any).msVibrate;
-										
+
 									// if (navigator.vibrate) {
 									// 	navigator.vibrate(400);
 									// }
@@ -105,7 +113,7 @@ const LineChart: FC<ILineChart> = ({
 							setDate(data.label);
 
 							const firstValue = chartData.find((chdata) => chdata.y > 0);
-							
+
 							if (chartData[0].y === 0) {
 								if (firstValue) {
 									setPercentage(findPercent(data.y, firstValue.y, true));
@@ -115,13 +123,14 @@ const LineChart: FC<ILineChart> = ({
 							} else {
 								setPercentage(findPercent(data.y, chartData[0].y, false));
 							}
-							
-							window.Telegram?.WebApp.HapticFeedback.impactOccurred("light");
+
+							window.Telegram?.WebApp.HapticFeedback.impactOccurred('light');
 							// if (navigator.vibrate) {
 							// 	navigator.vibrate(200);
 							// }
 						},
 					},
+					parentHeightOffset: 0,
 				},
 				colors: [type === 'good' ? '#34C759' : '#FF3B30'],
 				tooltip: {
