@@ -60,7 +60,7 @@ export interface IBots {
 
 export interface IRefs {
 	result: {
-		projects: [
+		refferal_links: [
 			{
 				link_name: string;
 				users_count: number;

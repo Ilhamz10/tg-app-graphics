@@ -49,7 +49,7 @@ const RefsTable = () => {
 			<Thead setSortParams={setSortParams} />
 			{isSuccess &&
 				data.result &&
-				data.result.projects.map((refLink) => (
+				data.result.refferal_links.map((refLink) => (
 					<Tbody
 						tbody={{
 							bots: refLink.link_name,
