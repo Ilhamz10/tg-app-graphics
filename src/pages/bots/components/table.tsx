@@ -56,10 +56,10 @@ const Table = () => {
 						<Tbody
 							tbody={{
 								bots: project.bot_username,
-								ca: project.conversion,
+								ca: project.conversion.toFixed(2),
 								payments: project.payments_count,
-								pdp: project.per_client_price,
-								profit: project.income_total,
+								pdp: project.per_client_price.toFixed(2),
+								profit: project.income_total.toFixed(2),
 								users: project.users_count,
 							}}
 						/>
