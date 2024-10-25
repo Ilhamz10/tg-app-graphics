@@ -44,33 +44,35 @@ const Table = () => {
 	}, [sortParams]);
 
 	return (
-		<div className='w-full grid grid-cols-[8ch,repeat(5,auto)] text-center overflow-auto'>
-			<Thead setSortParams={setSortParams} />
-			{isSuccess &&
-				data.result &&
-				(data.result.projects.length <= 0 ? (
-					<NotFoundIcon />
-				) : (
-					data.result.projects.map((project) => (
-						<div
-							onClick={() =>
-								dispatch(uiActions.setRefId(project.project_id_encoded))
-							}
-							className='col-span-6 grid grid-cols-[8ch,repeat(5,auto)]'>
-							<Tbody
-								tbody={{
-									bots: project.bot_username,
-									ca: project.conversion.toFixed(2),
-									payments: project.payments_count,
-									pdp: project.per_client_price.toFixed(2),
-									profit: project.income_total.toFixed(2),
-									users: project.users_count,
-								}}
-							/>
-						</div>
-					))
-				))}
-		</div>
+		<>
+			{data && data.result.projects.length <= 0 ? (
+				<NotFoundIcon />
+			) : (
+				<div className='w-full grid grid-cols-[8ch,repeat(5,auto)] text-center overflow-auto'>
+					<Thead setSortParams={setSortParams} />
+					{isSuccess &&
+						data.result &&
+						data.result.projects.map((project) => (
+							<div
+								onClick={() =>
+									dispatch(uiActions.setRefId(project.project_id_encoded))
+								}
+								className='col-span-6 grid grid-cols-[8ch,repeat(5,auto)]'>
+								<Tbody
+									tbody={{
+										bots: project.bot_username,
+										ca: project.conversion.toFixed(2),
+										payments: project.payments_count,
+										pdp: project.per_client_price.toFixed(2),
+										profit: project.income_total.toFixed(2),
+										users: project.users_count,
+									}}
+								/>
+							</div>
+						))}
+				</div>
+			)}
+		</>
 	);
 };
 
