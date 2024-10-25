@@ -1,7 +1,8 @@
 import { motion } from 'framer-motion';
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink, useLocation, useSearchParams } from 'react-router-dom';
 import { useAppDispatch } from '../../hooks/redux-hooks';
 import { calendarActions } from '../../store/calendar-slice';
+import { useEffect, useState } from 'react';
 
 const routes = [
 	{ to: '/choice', text: 'Выбрать' },
@@ -14,6 +15,15 @@ const routes = [
 const Footer = () => {
 	const { pathname } = useLocation();
 	const dispatch = useAppDispatch();
+	const [searchParams] = useSearchParams();
+	const currentParams = new URLSearchParams(searchParams);
+	const [params, setParams] = useState('');
+
+	useEffect(() => {
+		if (currentParams.get('project_id')) {
+			setParams(('project_id=' + currentParams.get('project_id')) as string);
+		}
+	}, [currentParams.get('project_id')]);
 
 	function toggleCalendar() {
 		dispatch(calendarActions.toggleCallendar());
@@ -27,13 +37,15 @@ const Footer = () => {
 						key={route.to}
 						className={`relative ${route.to === pathname ? 'py-[5px]' : ''}`}>
 						<NavLink
-							onClick={route.to === '/choice' ? toggleCalendar : () => {}}
+							onClick={route.to === `/choice` ? toggleCalendar : () => {}}
 							className={({ isActive }) =>
 								`text-sm font-medium relative z-10 transition-[top] ${
-									isActive ? 'text-linkColor -top-8' : 'text-subtitleColor top-0'
+									isActive
+										? 'text-linkColor -top-8'
+										: 'text-subtitleColor top-0'
 								}`
 							}
-							to={route.to}>
+							to={route.to + `?${params}`}>
 							{route.text}
 						</NavLink>
 						{pathname === route.to && (

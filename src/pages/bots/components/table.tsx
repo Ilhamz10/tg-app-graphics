@@ -5,6 +5,7 @@ import Thead from '../UI/thead';
 import { ISortParams } from '../../../endpoint/types';
 import { useAppDispatch, useAppSelector } from '../../../hooks/redux-hooks';
 import { uiActions } from '../../../store/ui-slice';
+import NotFoundIcon from './NotFoundIcon';
 
 const Table = () => {
 	const dispatch = useAppDispatch();
@@ -47,23 +48,27 @@ const Table = () => {
 			<Thead setSortParams={setSortParams} />
 			{isSuccess &&
 				data.result &&
-				data.result.projects.map((project) => (
-					<div
-						onClick={() =>
-							dispatch(uiActions.setRefId(project.project_id_encoded))
-						}
-						className='col-span-6 grid grid-cols-[8ch,repeat(5,auto)]'>
-						<Tbody
-							tbody={{
-								bots: project.bot_username,
-								ca: project.conversion.toFixed(2),
-								payments: project.payments_count,
-								pdp: project.per_client_price.toFixed(2),
-								profit: project.income_total.toFixed(2),
-								users: project.users_count,
-							}}
-						/>
-					</div>
+				(data.result.projects.length <= 0 ? (
+					<NotFoundIcon />
+				) : (
+					data.result.projects.map((project) => (
+						<div
+							onClick={() =>
+								dispatch(uiActions.setRefId(project.project_id_encoded))
+							}
+							className='col-span-6 grid grid-cols-[8ch,repeat(5,auto)]'>
+							<Tbody
+								tbody={{
+									bots: project.bot_username,
+									ca: project.conversion.toFixed(2),
+									payments: project.payments_count,
+									pdp: project.per_client_price.toFixed(2),
+									profit: project.income_total.toFixed(2),
+									users: project.users_count,
+								}}
+							/>
+						</div>
+					))
 				))}
 		</div>
 	);

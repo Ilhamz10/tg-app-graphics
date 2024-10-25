@@ -9,8 +9,6 @@ import { useSearchParams } from 'react-router-dom';
 import { Icon } from '@iconify/react/dist/iconify.js';
 
 const SeparateRefsTable = () => {
-	// const dispatch = useAppDispatch();
-	// const { refId } = useAppSelector((state) => state.uiReducer);
 	const [searchParams] = useSearchParams();
 	const { dateValue } = useAppSelector((state) => state.calendarReducer);
 	const [sortParams, setSortParams] = useState<ISortParams>({
@@ -44,7 +42,8 @@ const SeparateRefsTable = () => {
 	// }, [isFetching, isSuccess]);
 
 	useEffect(() => {
-		refetch();
+		if (dateValue.end_date !== undefined || dateValue.start_date !== undefined)
+			refetch();
 	}, [sortParams]);
 
 	return (

@@ -120,7 +120,7 @@ const Home = () => {
 			<main
 				className='wrapper pb-20 pt-4'
 				style={{
-					opacity: loading && !searchParams.get('project_id') ? '0' : '1',
+					opacity: loading ? '0' : '1',
 				}}>
 				<div className='flex items-center justify-between mb-8'>
 					<h2 className='font-semibold text-2xl text-textColor mr-2'>
