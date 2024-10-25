@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import Tbody from '../../bots/UI/tbody';
+import { useState } from 'react';
 import Thead from '../../bots/UI/thead';
 import { ISortParams } from '../../../endpoint/types';
+import { Icon } from '@iconify/react';
 
 const LoadingTable = () => {
 	const [sortParams, setSortParams] = useState<ISortParams>({
@@ -11,7 +11,15 @@ const LoadingTable = () => {
 	return (
 		<div className='w-full grid grid-cols-[8ch,repeat(5,auto)] text-center overflow-auto'>
 			<Thead setSortParams={setSortParams} />
-			<Tbody
+			<div className='col-span-6'>
+				<Icon
+					width={32}
+					height={32}
+					className='mx-auto'
+					icon='line-md:loading-loop'
+				/>
+			</div>
+			{/* <Tbody
 				tbody={{
 					bots: (
 						<div className='my-2 min-w-12 w-full bg-[#DCDCE2] h-4 rounded-lg flex justify-end relative loading'>
@@ -78,7 +86,7 @@ const LoadingTable = () => {
 						</div>
 					),
 				}}
-			/>
+			/> */}
 		</div>
 	);
 };

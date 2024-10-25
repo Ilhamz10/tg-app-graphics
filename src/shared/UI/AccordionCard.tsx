@@ -60,10 +60,10 @@ const AccordionCard: FC<IAcordionCard> = ({
 					<div className='grid grid-cols-[auto,auto,1fr] gap-1 items-center w-full'>
 						<p className='font-medium text-subtitleColor'>{text}</p>
 						<p
-							className={`font-semibold grid grid-cols-[auto,auto] w-max gap-1 items-center ${
+							className={`font-semibold grid grid-cols-[auto] w-max gap-1 items-center ${
 								type === 'good' ? 'text-green' : 'text-red'
 							}`}>
-							{info}{' '}
+							{/* {info}{' '} */}
 							<GraphicIcon
 								className={`${type === 'good' ? 'text-green' : 'text-red'}`}
 								width={23}

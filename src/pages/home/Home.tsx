@@ -1,15 +1,14 @@
 import { motion } from 'framer-motion';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import Complete from '../complete/complete';
 import Bots from '../bots/bots';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useSearchParams } from 'react-router-dom';
 import DatePicker, { registerLocale } from 'react-datepicker';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
 import { calendarActions } from '../../store/calendar-slice';
 import Loading from '../loading/loading';
 import { uiActions } from '../../store/ui-slice';
 import { ru } from 'date-fns/locale';
-import { TelegramProvider } from '../../shared/TelegramProvider';
 import {
 	getMonth,
 	getToday,
@@ -17,6 +16,7 @@ import {
 	getYear,
 	getYesterday,
 } from '../../utils/getDateByTimestamp';
+import SeparateRefsTable from '../bots/components/SeparateRefsTable';
 
 registerLocale('ru', ru);
 
@@ -26,6 +26,7 @@ export let tabs = [
 ];
 
 const Home = () => {
+	const [searchParams] = useSearchParams();
 	const { activeTab, loading, refId } = useAppSelector(
 		(state) => state.uiReducer
 	);
@@ -115,10 +116,12 @@ const Home = () => {
 
 	return (
 		<>
-			{loading && <Loading />}
+			{loading && !searchParams.get('project_id') && <Loading />}
 			<main
 				className='wrapper pb-20 pt-4'
-				style={{ opacity: loading ? '0' : '1' }}>
+				style={{
+					opacity: loading && !searchParams.get('project_id') ? '0' : '1',
+				}}>
 				<div className='flex items-center justify-between mb-8'>
 					<h2 className='font-semibold text-2xl text-textColor mr-2'>
 						Статистика
@@ -182,7 +185,7 @@ const Home = () => {
 							: 'Выберите дату'}
 					</p>
 				</div>
-				{!refId && (
+				{!refId && !searchParams.get('project_id') && (
 					<div className='grid grid-cols-2 p-[2px] rounded-lg bg-[#7878801F] mb-5'>
 						{tabs.map((tab) => (
 							<button
@@ -204,7 +207,9 @@ const Home = () => {
 						))}
 					</div>
 				)}
-				{activeTab === 'complete' ? <Complete /> : <Bots />}
+				{!searchParams.get('project_id') &&
+					(activeTab === 'complete' ? <Complete /> : <Bots />)}
+				{searchParams.get('project_id') && <SeparateRefsTable />}
 			</main>
 		</>
 	);

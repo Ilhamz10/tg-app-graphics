@@ -14,7 +14,7 @@ registerLocale('ru', ru);
 
 const Loading = () => {
 	// const [activeTab, setActiveTab] = useState(tabs[0].id);
-	const { activeTab } = useAppSelector((state) => state.uiReducer);
+	const { activeTab, refId } = useAppSelector((state) => state.uiReducer);
 	const datePickerRef = useRef<any>(null);
 
 	const { calendarIsOpen } = useAppSelector((state) => state.calendarReducer);
@@ -83,7 +83,7 @@ const Loading = () => {
 						: 'Выберите дату'}
 				</p>
 			</header>
-			<div className='grid grid-cols-2 p-[2px] rounded-lg bg-[#7878801F] mb-5'>
+			{!refId && <div className='grid grid-cols-2 p-[2px] rounded-lg bg-[#7878801F] mb-5'>
 				{tabs.map((tab) => (
 					<button
 						key={tab.id}
@@ -104,7 +104,7 @@ const Loading = () => {
 						)}
 					</button>
 				))}
-			</div>
+			</div>}
 			{activeTab === 'complete' ? <CompleteLoading /> : <BotsLoading />}
 		</main>
 	);
