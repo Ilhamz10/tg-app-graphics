@@ -1,13 +1,8 @@
 import { motion } from 'framer-motion';
-import {
-	NavLink,
-	useLocation,
-	useNavigate,
-	useSearchParams,
-} from 'react-router-dom';
+import { NavLink, useLocation, useSearchParams } from 'react-router-dom';
 import { useAppDispatch } from '../../hooks/redux-hooks';
 import { calendarActions } from '../../store/calendar-slice';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const routes = [
 	{ to: '/choice', text: 'Выбрать' },
@@ -17,24 +12,22 @@ const routes = [
 	{ to: '/month', text: 'Месяц' },
 	{ to: '/year', text: 'Год' },
 ];
-
 const Footer = () => {
 	const { pathname } = useLocation();
 	const dispatch = useAppDispatch();
-	const navigate = useNavigate();
 	const [searchParams] = useSearchParams();
 	const currentParams = new URLSearchParams(searchParams);
-	const urlParams = useRef(currentParams.get('project_id'));
+	const [params, setParams] = useState('');
+
+	useEffect(() => {
+		if (currentParams.get('project_id')) {
+			setParams(('project_id=' + currentParams.get('project_id')) as string);
+		}
+	}, [currentParams.get('project_id')]);
 
 	function toggleCalendar() {
 		dispatch(calendarActions.toggleCallendar());
 	}
-
-	useEffect(() => {
-		if (urlParams) {
-			navigate(`${pathname}?project_id=urlParams`);
-		}
-	}, [pathname, urlParams]);
 
 	return (
 		<footer className='fixed left-0 right-0 bottom-0 z-[99999999]'>
@@ -54,7 +47,7 @@ const Footer = () => {
 										: 'text-subtitleColor top-0'
 								}`
 							}
-							to={route.to}>
+							to={route.to + `?${params}`}>
 							{route.text}
 						</NavLink>
 						{pathname.includes(route.to) && (
