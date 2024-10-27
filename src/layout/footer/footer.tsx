@@ -35,7 +35,9 @@ const Footer = () => {
 				{routes.map((route) => (
 					<li
 						key={route.to}
-						className={`relative ${route.to === pathname ? 'py-[5px]' : ''}`}>
+						className={`relative ${
+							pathname.includes(route.to) ? 'py-[5px]' : ''
+						}`}>
 						<NavLink
 							onClick={route.to === `/choice` ? toggleCalendar : () => {}}
 							className={({ isActive }) =>
@@ -48,7 +50,7 @@ const Footer = () => {
 							to={route.to + `?${params}`}>
 							{route.text}
 						</NavLink>
-						{pathname === route.to && (
+						{pathname.includes(route.to) && (
 							<motion.div
 								layoutId='underline'
 								transition={{
