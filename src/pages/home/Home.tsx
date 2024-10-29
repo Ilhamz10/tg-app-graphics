@@ -1,7 +1,5 @@
 import { motion } from 'framer-motion';
-import { lazy, useEffect, useRef } from 'react';
-// import Complete from '../complete/complete';
-// import Bots from '../bots/bots';
+import { lazy, useEffect } from 'react';
 import { useLocation, useSearchParams } from 'react-router-dom';
 import { registerLocale } from 'react-datepicker';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
@@ -17,7 +15,6 @@ import {
 	getYesterday,
 } from '../../utils/getDateByTimestamp';
 import SeparateRefsTable from '../bots/components/SeparateRefsTable';
-// import DatePickerComponent from './components/DatePickerComponent';
 const LazyComplete = lazy(() => import('../complete/complete'));
 const LazyBots = lazy(() => import('../bots/bots'));
 const LazyDatePickerComponent = lazy(
@@ -36,9 +33,7 @@ const Home = () => {
 	const { activeTab, loading, refId } = useAppSelector(
 		(state) => state.uiReducer
 	);
-	const { calendarState } = useAppSelector(
-		(state) => state.calendarReducer
-	);
+	const { calendarState } = useAppSelector((state) => state.calendarReducer);
 	const location = useLocation();
 	const dispatch = useAppDispatch();
 
@@ -115,55 +110,18 @@ const Home = () => {
 
 	return (
 		<>
-			{loading && !searchParams.get('project_id') && <Loading />}
+			{/* {loading && !searchParams.get('project_id') && <Loading />} */}
 			<main
 				className='wrapper pb-20 pt-4'
-				style={{
-					opacity: loading ? '0' : '1',
-				}}>
+				// style={{
+				// 	opacity: loading ? '0' : '1',
+				// }}
+			>
 				<div className='flex items-center justify-between mb-8'>
 					<h2 className='font-semibold text-2xl text-textColor mr-2'>
 						Статистика
 					</h2>
 					<LazyDatePickerComponent />
-					{/* <DatePicker
-						ref={datePickerRef}
-						selectsRange={true}
-						startDate={startDate ? new Date(startDate) : undefined}
-						endDate={endDate ? new Date(endDate) : undefined}
-						locale={'ru'}
-						onChange={(update) => {
-							if (
-								update[0]?.toUTCString() === update[1]?.toUTCString() &&
-								update[1] !== null &&
-								update[0] !== null
-							) {
-								update[1].setHours(23, 59, 59, 999);
-							}
-
-							dispatch(
-								calendarActions.setCalendarState([
-									update[0] ? update[0].toUTCString() : null,
-									update[1] ? update[1].toUTCString() : null,
-								])
-							);
-						}}
-						withPortal
-						placeholderText='Выберите дату'
-						customInput={
-							<input
-								style={{
-									maxWidth: `20ch`,
-									width: '100%',
-								}}
-								className='hidden'
-							/>
-						}
-						onClickOutside={() => dispatch(calendarActions.toggleCallendar())}
-						onCalendarClose={() => dispatch(calendarActions.setCalendar(false))}
-						shouldCloseOnSelect={false}
-						maxDate={new Date()}
-					/> */}
 					<p className='px-[6px] py-1 bg-bgColor text-linkColor font-medium rounded-lg cursor-pointer'>
 						{startDate && endDate
 							? new Date(startDate).getFullYear() ===
