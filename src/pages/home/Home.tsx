@@ -1,9 +1,9 @@
 import { motion } from 'framer-motion';
-import { useEffect, useRef } from 'react';
-import Complete from '../complete/complete';
-import Bots from '../bots/bots';
+import { lazy, useEffect, useRef } from 'react';
+// import Complete from '../complete/complete';
+// import Bots from '../bots/bots';
 import { useLocation, useSearchParams } from 'react-router-dom';
-import DatePicker, { registerLocale } from 'react-datepicker';
+import { registerLocale } from 'react-datepicker';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
 import { calendarActions } from '../../store/calendar-slice';
 import Loading from '../loading/loading';
@@ -17,6 +17,12 @@ import {
 	getYesterday,
 } from '../../utils/getDateByTimestamp';
 import SeparateRefsTable from '../bots/components/SeparateRefsTable';
+// import DatePickerComponent from './components/DatePickerComponent';
+const LazyComplete = lazy(() => import('../complete/complete'));
+const LazyBots = lazy(() => import('../bots/bots'));
+const LazyDatePickerComponent = lazy(
+	() => import('./components/DatePickerComponent')
+);
 
 registerLocale('ru', ru);
 
@@ -126,7 +132,8 @@ const Home = () => {
 					<h2 className='font-semibold text-2xl text-textColor mr-2'>
 						Статистика
 					</h2>
-					<DatePicker
+					<LazyDatePickerComponent />
+					{/* <DatePicker
 						ref={datePickerRef}
 						selectsRange={true}
 						startDate={startDate ? new Date(startDate) : undefined}
@@ -163,7 +170,7 @@ const Home = () => {
 						onCalendarClose={() => dispatch(calendarActions.setCalendar(false))}
 						shouldCloseOnSelect={false}
 						maxDate={new Date()}
-					/>
+					/> */}
 					<p className='px-[6px] py-1 bg-bgColor text-linkColor font-medium rounded-lg cursor-pointer'>
 						{startDate && endDate
 							? new Date(startDate).getFullYear() ===
@@ -208,7 +215,7 @@ const Home = () => {
 					</div>
 				)}
 				{!searchParams.get('project_id') &&
-					(activeTab === 'complete' ? <Complete /> : <Bots />)}
+					(activeTab === 'complete' ? <LazyComplete /> : <LazyBots />)}
 				{searchParams.get('project_id') && <SeparateRefsTable />}
 			</main>
 		</>

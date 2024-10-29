@@ -1,6 +1,5 @@
 import React, { FC, useRef } from 'react';
 import ReactApexChart from 'react-apexcharts';
-import { findPercent } from '../../../utils/findMaxPercentage';
 
 interface ILineChart {
 	setTitle: React.Dispatch<React.SetStateAction<number>>;
@@ -60,8 +59,6 @@ const LineChart: FC<ILineChart> = ({
 						mouseMove: function (event, chartContext, config) {
 							if (config.dataPointIndex !== -1) {
 								const dataPointIndex = config.dataPointIndex;
-								const seriesIndex = config.seriesIndex;
-
 								// Only trigger the event if the hovered point changes
 								if (lastHoveredPoint.current !== dataPointIndex) {
 									// Get the value of the hovered point
@@ -74,17 +71,17 @@ const LineChart: FC<ILineChart> = ({
 										'light'
 									);
 
-									const firstValue = chartData.find((chdata) => chdata.y > 0);
+									// const firstValue = chartData.find((chdata) => chdata.y > 0);
 
-									if (chartData[0].y === 0) {
-										if (firstValue) {
-											setPercentage(findPercent(data.y, firstValue.y, true));
-										} else {
-											setPercentage(findPercent(data.y, chartData[0].y, true));
-										}
-									} else {
-										setPercentage(findPercent(data.y, chartData[0].y, false));
-									}
+									// if (chartData[0].y === 0) {
+									// 	if (firstValue) {
+									// 		setPercentage(findPercent(data.y, firstValue.y, true));
+									// 	} else {
+									// 		setPercentage(findPercent(data.y, chartData[0].y, true));
+									// 	}
+									// } else {
+									// 	setPercentage(findPercent(data.y, chartData[0].y, false));
+									// }
 
 									// Update the last hovered point
 									lastHoveredPoint.current = dataPointIndex;
@@ -112,17 +109,17 @@ const LineChart: FC<ILineChart> = ({
 							setTitle(data.y);
 							setDate(data.label);
 
-							const firstValue = chartData.find((chdata) => chdata.y > 0);
+							// const firstValue = chartData.find((chdata) => chdata.y > 0);
 
-							if (chartData[0].y === 0) {
-								if (firstValue) {
-									setPercentage(findPercent(data.y, firstValue.y, true));
-								} else {
-									setPercentage(findPercent(data.y, chartData[0].y, true));
-								}
-							} else {
-								setPercentage(findPercent(data.y, chartData[0].y, false));
-							}
+							// if (chartData[0].y === 0) {
+							// 	if (firstValue) {
+							// 		setPercentage(findPercent(data.y, firstValue.y, true));
+							// 	} else {
+							// 		setPercentage(findPercent(data.y, chartData[0].y, true));
+							// 	}
+							// } else {
+							// 	setPercentage(findPercent(data.y, chartData[0].y, false));
+							// }
 
 							window.Telegram?.WebApp.HapticFeedback.impactOccurred('light');
 							// if (navigator.vibrate) {

@@ -1,6 +1,6 @@
-import ChartAccordion from './components/chart-acordion';
+// import ChartAccordion from './components/chart-acordion';
 import { findMaxPercent } from '../../utils/findMaxPercentage';
-import { useEffect } from 'react';
+import { lazy, memo, useEffect } from 'react';
 import {
 	useGetClientsStatisticQuery,
 	useGetIncomeStatisticQuery,
@@ -9,26 +9,17 @@ import {
 } from '../../endpoint/userStatisticApi';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
 import { uiActions } from '../../store/ui-slice';
+const LazyChartAccordion = lazy(() => import('./components/chart-acordion'));
 
-const secondData = [
-	{ x: 0, y: 1, label: 'text' },
-	{ x: 1, y: 1, label: 'text' },
-	{ x: 2, y: 5, label: 'text' },
-	{ x: 3, y: 10, label: 'text' },
-	{ x: 4, y: 0, label: 'text' },
-];
+// const secondData = [
+// 	{ x: 0, y: 1, label: 'text' },
+// 	{ x: 1, y: 1, label: 'text' },
+// 	{ x: 2, y: 5, label: 'text' },
+// 	{ x: 3, y: 10, label: 'text' },
+// 	{ x: 4, y: 0, label: 'text' },
+// ];
 
-const firstData = [
-	{ x: 0, y: 0, label: 'text' },
-	{ x: 1, y: 0, label: 'text' },
-	{ x: 2, y: 5, label: 'text' },
-	{ x: 3, y: 8, label: 'text' },
-	{ x: 4, y: 15, label: 'text' },
-	{ x: 5, y: 6, label: 'text' },
-	{ x: 6, y: 0, label: 'text' },
-];
-
-const Complete = () => {
+const Complete = memo(() => {
 	const { dateValue } = useAppSelector((state) => state.calendarReducer);
 	const dispatch = useAppDispatch();
 
@@ -120,7 +111,7 @@ const Complete = () => {
 		<>
 			<div className='grid gap-2 mb-8'>
 				{incomeChartIsSuccess && incomeChart.result.graph.length > 0 && (
-					<ChartAccordion
+					<LazyChartAccordion
 						maxPercentage={findMaxPercent(incomeChart.result.graph)}
 						maxValue={incomeChart.result.graph.reduce(
 							(acc, graph) => acc + graph.y,
@@ -132,7 +123,7 @@ const Complete = () => {
 					/>
 				)}
 				{clientsChartIsSuccess && clientsChart.result.graph.length > 0 && (
-					<ChartAccordion
+					<LazyChartAccordion
 						maxPercentage={findMaxPercent(clientsChart.result.graph)}
 						maxValue={clientsChart.result.graph.reduce(
 							(acc, graph) => acc + graph.y,
@@ -145,7 +136,7 @@ const Complete = () => {
 				)}
 				{paymentsCountChartIsSuccess &&
 					paymentsCountChart.result.graph.length > 0 && (
-						<ChartAccordion
+						<LazyChartAccordion
 							maxPercentage={findMaxPercent(paymentsCountChart.result.graph)}
 							maxValue={paymentsCountChart.result.graph.reduce(
 								(acc, graph) => acc + graph.y,
@@ -169,6 +160,6 @@ const Complete = () => {
 			)}
 		</>
 	);
-};
+});
 
 export default Complete;

@@ -1,6 +1,8 @@
-import React, { FC, useEffect, useState } from 'react';
-import AccordionCard from '../../../shared/UI/AccordionCard';
-import LineChart from './linec-chart';
+import { FC, lazy, useEffect, useState } from 'react';
+// import AccordionCard from '../../../shared/UI/AccordionCard';
+// import LineChart from './linec-chart';
+const LazyLineChart = lazy(() => import('./linec-chart'));
+const LazyAccordionCard = lazy(() => import('../../../shared/UI/AccordionCard'));
 
 interface IChartAccordion {
 	maxValue: number;
@@ -28,13 +30,13 @@ const ChartAccordion: FC<IChartAccordion> = ({
 	}, [maxPercentage, maxValue, chartData[chartData.length - 1].label]);
 
 	return (
-		<AccordionCard
+		<LazyAccordionCard
 			title={`${title} ${titleText}`}
 			text={text}
 			info={`${percentage > 0 ? '+' : ''}${percentage}%`}
 			type={percentage < 0 ? 'bad' : 'good'}
 			content={
-				<LineChart
+				<LazyLineChart
 					type={maxPercentage < 0 ? 'bad' : 'good'}
 					setPercentage={setPercentage}
 					setTitle={setTitle}
