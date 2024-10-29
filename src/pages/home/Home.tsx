@@ -36,11 +36,10 @@ const Home = () => {
 	const { activeTab, loading, refId } = useAppSelector(
 		(state) => state.uiReducer
 	);
-	const { calendarState, calendarIsOpen } = useAppSelector(
+	const { calendarState } = useAppSelector(
 		(state) => state.calendarReducer
 	);
 	const location = useLocation();
-	const datePickerRef = useRef<any>(null);
 	const dispatch = useAppDispatch();
 
 	const [startDate, endDate] = calendarState;
@@ -106,12 +105,6 @@ const Home = () => {
 				break;
 		}
 	}, [location.pathname]);
-
-	useEffect(() => {
-		if (!loading) {
-			datePickerRef.current.setOpen(calendarIsOpen);
-		}
-	}, [calendarIsOpen, loading]);
 
 	const handleTabClick = (tabId: 'complete' | 'bots') => {
 		if (activeTab !== tabId) {

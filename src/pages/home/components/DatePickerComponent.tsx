@@ -1,12 +1,15 @@
 import DatePicker from 'react-datepicker';
 import { useAppDispatch, useAppSelector } from '../../../hooks/redux-hooks';
-import { useCallback, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import { calendarActions } from '../../../store/calendar-slice';
 
 const DatePickerComponent = () => {
 	const dispatch = useAppDispatch();
 	const datePickerRef = useRef<any>(null);
-	const { calendarState } = useAppSelector((state) => state.calendarReducer);
+	const { loading } = useAppSelector((state) => state.uiReducer);
+	const { calendarState, calendarIsOpen } = useAppSelector(
+		(state) => state.calendarReducer
+	);
 	const [startDate, endDate] = calendarState;
 
 	const onUpdateDatePicker = useCallback(
@@ -28,6 +31,12 @@ const DatePickerComponent = () => {
 		},
 		[]
 	);
+
+	useEffect(() => {
+		if (!loading) {
+			datePickerRef.current.setOpen(calendarIsOpen);
+		}
+	}, [calendarIsOpen, loading]);
 
 	return (
 		<DatePicker
