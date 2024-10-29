@@ -1,17 +1,16 @@
 // import ChartAccordion from './components/chart-acordion';
 import { findMaxPercent } from '../../utils/findMaxPercentage';
-import { lazy, memo, useEffect } from 'react';
+import { memo } from 'react';
 import {
 	useGetClientsStatisticQuery,
 	useGetIncomeStatisticQuery,
 	useGetPaymentsCountStatisticQuery,
 	useGetStatisticRawQuery,
 } from '../../endpoint/userStatisticApi';
-import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
-import { uiActions } from '../../store/ui-slice';
+import { useAppSelector } from '../../hooks/redux-hooks';
 import LoadingGraphic from '../loading/UI/loading-graphic';
 import LoadingCompleteData from '../loading/UI/loading-complete-data';
-const LazyChartAccordion = lazy(() => import('./components/chart-acordion'));
+import ChartAccordion from './components/chart-acordion';
 
 // const secondData = [
 // 	{ x: 0, y: 1, label: 'text' },
@@ -23,7 +22,6 @@ const LazyChartAccordion = lazy(() => import('./components/chart-acordion'));
 
 const Complete = memo(() => {
 	const { dateValue } = useAppSelector((state) => state.calendarReducer);
-	// const dispatch = useAppDispatch();
 
 	const { data, isFetching, isSuccess } = useGetStatisticRawQuery(
 		{
@@ -82,33 +80,6 @@ const Complete = memo(() => {
 		}
 	);
 
-	// useEffect(() => {
-	// 	if (
-	// 		isFetching ||
-	// 		clientsChartIsLoading ||
-	// 		paymentsCountChartIsLoading ||
-	// 		incomeChartIsLoading
-	// 	) {
-	// 		dispatch(uiActions.setLoading(true));
-	// 	} else if (
-	// 		isSuccess &&
-	// 		clientsChartIsSuccess &&
-	// 		paymentsCountChartIsSuccess &&
-	// 		incomeChartIsSuccess
-	// 	) {
-	// 		dispatch(uiActions.setLoading(false));
-	// 	}
-	// }, [
-	// 	isFetching,
-	// 	isSuccess,
-	// 	clientsChartIsLoading,
-	// 	clientsChartIsSuccess,
-	// 	paymentsCountChartIsLoading,
-	// 	paymentsCountChartIsSuccess,
-	// 	incomeChartIsLoading,
-	// 	incomeChartIsSuccess,
-	// ]);
-
 	return (
 		<>
 			<div className='grid gap-2 mb-8'>
@@ -117,7 +88,7 @@ const Complete = memo(() => {
 				) : (
 					incomeChartIsSuccess &&
 					incomeChart.result.graph.length > 0 && (
-						<LazyChartAccordion
+						<ChartAccordion
 							maxPercentage={findMaxPercent(incomeChart.result.graph)}
 							maxValue={incomeChart.result.graph.reduce(
 								(acc, graph) => acc + graph.y,
@@ -134,7 +105,7 @@ const Complete = memo(() => {
 				) : (
 					clientsChartIsSuccess &&
 					clientsChart.result.graph.length > 0 && (
-						<LazyChartAccordion
+						<ChartAccordion
 							maxPercentage={findMaxPercent(clientsChart.result.graph)}
 							maxValue={clientsChart.result.graph.reduce(
 								(acc, graph) => acc + graph.y,
@@ -151,7 +122,7 @@ const Complete = memo(() => {
 				) : (
 					paymentsCountChartIsSuccess &&
 					paymentsCountChart.result.graph.length > 0 && (
-						<LazyChartAccordion
+						<ChartAccordion
 							maxPercentage={findMaxPercent(paymentsCountChart.result.graph)}
 							maxValue={paymentsCountChart.result.graph.reduce(
 								(acc, graph) => acc + graph.y,

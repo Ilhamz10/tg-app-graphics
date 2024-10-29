@@ -7,6 +7,7 @@ import { useGetBotReferalsQuery } from '../../../endpoint/referalsApi';
 import { ISortParams } from '../../../endpoint/types';
 import { useSearchParams } from 'react-router-dom';
 import { Icon } from '@iconify/react/dist/iconify.js';
+import LoadingTable from '../../loading/UI/loading-table';
 
 const SeparateRefsTable = () => {
 	const [searchParams] = useSearchParams();
@@ -31,50 +32,46 @@ const SeparateRefsTable = () => {
 		}
 	);
 
-	// useEffect(() => {
-	// 	if (isFetching) {
-	// 		dispatch(uiActions.setLoading(true));
-	// 	}
-
-	// 	if (isSuccess && !isFetching) {
-	// 		dispatch(uiActions.setLoading(false));
-	// 	}
-	// }, [isFetching, isSuccess]);
-
 	useEffect(() => {
 		if (dateValue.end_date !== undefined || dateValue.start_date !== undefined)
 			refetch();
 	}, [sortParams]);
 
-	return (
-		<div className='w-full grid grid-cols-[8ch,repeat(5,auto)] text-center overflow-auto'>
-			<Thead setSortParams={setSortParams} />
-			{isFetching && (
-				<div className='col-span-6'>
-					<Icon
-						width={32}
-						height={32}
-						className='mx-auto'
-						icon='line-md:loading-loop'
-					/>
-				</div>
-			)}
-			{isSuccess &&
-				data.result &&
-				data.result.refferal_links.map((refLink) => (
-					<Tbody
-						tbody={{
-							bots: refLink.link_name,
-							ca: refLink.conversion,
-							payments: refLink.payments_count,
-							pdp: refLink.per_client_price,
-							profit: refLink.income_total,
-							users: refLink.users_count,
-						}}
-					/>
-				))}
-		</div>
-	);
+	if (isFetching) {
+		return <LoadingTable />;
+	}
+
+	if (isSuccess && !isFetching) {
+		return (
+			<div className='w-full grid grid-cols-[8ch,repeat(5,auto)] text-center overflow-auto'>
+				<Thead setSortParams={setSortParams} />
+				{isFetching && (
+					<div className='col-span-6'>
+						<Icon
+							width={32}
+							height={32}
+							className='mx-auto'
+							icon='line-md:loading-loop'
+						/>
+					</div>
+				)}
+				{isSuccess &&
+					data.result &&
+					data.result.refferal_links.map((refLink) => (
+						<Tbody
+							tbody={{
+								bots: refLink.link_name,
+								ca: refLink.conversion,
+								payments: refLink.payments_count,
+								pdp: refLink.per_client_price,
+								profit: refLink.income_total,
+								users: refLink.users_count,
+							}}
+						/>
+					))}
+			</div>
+		);
+	}
 };
 
 export default SeparateRefsTable;

@@ -4,7 +4,6 @@ import { useLocation, useSearchParams } from 'react-router-dom';
 import { registerLocale } from 'react-datepicker';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
 import { calendarActions } from '../../store/calendar-slice';
-import Loading from '../loading/loading';
 import { uiActions } from '../../store/ui-slice';
 import { ru } from 'date-fns/locale';
 import {
@@ -15,8 +14,8 @@ import {
 	getYesterday,
 } from '../../utils/getDateByTimestamp';
 import SeparateRefsTable from '../bots/components/SeparateRefsTable';
-const LazyComplete = lazy(() => import('../complete/complete'));
-const LazyBots = lazy(() => import('../bots/bots'));
+import Complete from '../complete/complete';
+import Bots from '../bots/bots';
 const LazyDatePickerComponent = lazy(
 	() => import('./components/DatePickerComponent')
 );
@@ -30,7 +29,7 @@ export let tabs = [
 
 const Home = () => {
 	const [searchParams] = useSearchParams();
-	const { activeTab, loading, refId } = useAppSelector(
+	const { activeTab, refId } = useAppSelector(
 		(state) => state.uiReducer
 	);
 	const { calendarState } = useAppSelector((state) => state.calendarReducer);
@@ -166,7 +165,7 @@ const Home = () => {
 					</div>
 				)}
 				{!searchParams.get('project_id') &&
-					(activeTab === 'complete' ? <LazyComplete /> : <LazyBots />)}
+					(activeTab === 'complete' ? <Complete /> : <Bots />)}
 				{searchParams.get('project_id') && <SeparateRefsTable />}
 			</main>
 		</>
