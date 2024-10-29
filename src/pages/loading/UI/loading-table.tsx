@@ -4,7 +4,7 @@ import { ISortParams } from '../../../endpoint/types';
 import { Icon } from '@iconify/react';
 
 const LoadingTable = () => {
-	const [sortParams, setSortParams] = useState<ISortParams>({
+	const [_, setSortParams] = useState<ISortParams>({
 		order: 'asc',
 		sort_by: 'users_count',
 	});
@@ -20,74 +20,6 @@ const LoadingTable = () => {
 					color='var(--tg-theme-text-color)'
 				/>
 			</div>
-			{/* <Tbody
-				tbody={{
-					bots: (
-						<div className='my-2 min-w-12 w-full bg-[#DCDCE2] h-4 rounded-lg flex justify-end relative loading'>
-							<div className='bg-bgColor w-3 h-[19px] blur-[2px] absolute -right-1 -top-[3px]' />
-						</div>
-					),
-					ca: (
-						<div className='my-2 min-w-12 w-full bg-[#DCDCE2] h-4 rounded-lg flex justify-end relative loading'>
-							<div className='bg-bgColor w-3 h-[19px] blur-[2px] absolute -right-1 -top-[3px]' />
-						</div>
-					),
-					payments: (
-						<div className='my-2 min-w-12 w-full bg-[#DCDCE2] h-4 rounded-lg flex justify-end relative loading'>
-							<div className='bg-bgColor w-3 h-[19px] blur-[2px] absolute -right-1 -top-[3px]' />
-						</div>
-					),
-					pdp: (
-						<div className='my-2 min-w-12 w-full bg-[#DCDCE2] h-4 rounded-lg flex justify-end relative loading'>
-							<div className='bg-bgColor w-3 h-[19px] blur-[2px] absolute -right-1 -top-[3px]' />
-						</div>
-					),
-					profit: (
-						<div className='my-2 min-w-12 w-full bg-[#DCDCE2] h-4 rounded-lg flex justify-end relative loading'>
-							<div className='bg-bgColor w-3 h-[19px] blur-[2px] absolute -right-1 -top-[3px]' />
-						</div>
-					),
-					users: (
-						<div className='my-2 min-w-12 w-full bg-[#DCDCE2] h-4 rounded-lg flex justify-end relative loading'>
-							<div className='bg-bgColor w-3 h-[19px] blur-[2px] absolute -right-1 -top-[3px]' />
-						</div>
-					),
-				}}
-			/>
-			<Tbody
-				tbody={{
-					bots: (
-						<div className='my-2 min-w-12 w-full bg-[#DCDCE2] h-4 rounded-lg flex justify-end relative loading'>
-							<div className='bg-bgColor w-3 h-[19px] blur-[2px] absolute -right-1 -top-[3px]' />
-						</div>
-					),
-					ca: (
-						<div className='my-2 min-w-12 w-full bg-[#DCDCE2] h-4 rounded-lg flex justify-end relative loading'>
-							<div className='bg-bgColor w-3 h-[19px] blur-[2px] absolute -right-1 -top-[3px]' />
-						</div>
-					),
-					payments: (
-						<div className='my-2 min-w-12 w-full bg-[#DCDCE2] h-4 rounded-lg flex justify-end relative loading'>
-							<div className='bg-bgColor w-3 h-[19px] blur-[2px] absolute -right-1 -top-[3px]' />
-						</div>
-					),
-					pdp: (
-						<div className='my-2 min-w-12 w-full bg-[#DCDCE2] h-4 rounded-lg flex justify-end relative loading'>
-							<div className='bg-bgColor w-3 h-[19px] blur-[2px] absolute -right-1 -top-[3px]' />
-						</div>
-					),
-					profit: (
-						<div className='my-2 min-w-12 w-full bg-[#DCDCE2] h-4 rounded-lg flex justify-end relative loading'>
-							<div className='bg-bgColor w-3 h-[19px] blur-[2px] absolute -right-1 -top-[3px]' />
-						</div>
-					),
-					users: (
-						<div className='my-2 min-w-12 w-full bg-[#DCDCE2] h-4 rounded-lg flex justify-end relative loading'>
-							<div className='bg-bgColor w-3 h-[19px] blur-[2px] absolute -right-1 -top-[3px]' />
-						</div>
-					),
-				}}
-			/> */}
 		</div>
 	);
 };
