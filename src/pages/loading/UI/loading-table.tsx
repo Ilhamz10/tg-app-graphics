@@ -17,6 +17,7 @@ const LoadingTable = () => {
 					height={32}
 					className='mx-auto'
 					icon='line-md:loading-loop'
+					color='var(--tg-theme-text-color)'
 				/>
 			</div>
 			{/* <Tbody
