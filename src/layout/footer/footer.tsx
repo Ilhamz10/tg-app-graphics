@@ -19,6 +19,12 @@ const Footer = () => {
 	const currentParams = new URLSearchParams(searchParams);
 	const [params, setParams] = useState('');
 
+	const isIOS = () => {
+		return (
+			/iPad|iPhone|iPod/.test(navigator.userAgent) && !(window as any).MSStream
+		);
+	};
+
 	useEffect(() => {
 		if (currentParams.get('project_id')) {
 			setParams(('project_id=' + currentParams.get('project_id')) as string);
@@ -31,7 +37,9 @@ const Footer = () => {
 
 	return (
 		<footer className='fixed left-0 right-0 bottom-0 z-[99999999]'>
-			<ul className='relative flex items-center justify-between px-4 pt-4 pb-3 bg-bgColor '>
+			<ul
+				style={{ paddingBottom: isIOS() ? '16px' : '12px' }}
+				className='relative flex items-center justify-between px-4 pt-4 pb-3 bg-bgColor '>
 				{routes.map((route) => (
 					<li
 						key={route.to}
