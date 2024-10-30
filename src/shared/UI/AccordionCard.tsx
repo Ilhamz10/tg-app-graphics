@@ -83,7 +83,7 @@ const AccordionCard: FC<IAcordionCard> = ({
 				initial={'close'}
 				variants={dropdownVariants}
 				animate={isOpen ? 'open' : 'close'}
-				className={`overflow-hidden pt-0 px-3 [&>div]:-mt-8`}>
+				className={`overflow-hidden pt-0 px-3 [&>div]:-mt-6`}>
 				{content}
 			</motion.div>
 		</div>
